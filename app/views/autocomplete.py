@@ -11,8 +11,8 @@ __author__ = 'Davor Obilinovic'
 def autocomplete_sugestions():
     text = request.args['query']
     regx = re.compile("^"+text, re.IGNORECASE)
-    curName = mongo.users.find({'name': regx, 'role':"donor"})
-    curSurname = mongo.users.find({'surname': regx, 'role':"donor"})
+    curName = mongo.UserDocument.find({'name': regx, 'type':"donor"})
+    curSurname = mongo.UserDocument.find({'surname': regx, 'type':"donor"})
     res = []
     name_len = curName.count()
     surname_len = curSurname.count()
