@@ -69,40 +69,37 @@
                             <input class="form-control" name="0-low" value="{{ institution.get0minus() }}">
                         </div>
                     </div>
-                    <div class="form-group">
-                        {% if institution.active %}
-                        <div class="radio">
-                            <label>
-                                <input id="radio-active" type="radio" value="active" name="active" checked="">
-                                Active
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input id="radio-inactive" type="radio" value="inactive">
-                                Inactive
-                            </label>
-                        </div>
-                        {% else %}
-                        <div class="radio">
-                            <label>
-                                <input id="radio-active" type="radio" value="active" name="active">
-                                Active
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input id="radio-inactive" type="radio" value="inactive" checked="">
-                                Inactive
-                            </label>
-                        </div>
-                        {% endif %}
-                    </div>
                     <button class="btn btn-default" type="submit">Submit</button>
                 </form>
+                {% if institution.active %}
+                    <button class="btn btn-default hidden" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
+                    <button class="btn btn-default" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                {% else %}
+                    <button class="btn btn-default" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
+                    <button class="btn btn-default hidden" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                {% endif %}
             </div>
         </div>
         <!-- /.col-lg-12 -->
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/MagicApp.js"></script>
+    <script>
+    function activateInstitution(id){
+            $.post("/institution/" + id + "/activate", function() {
+                hideElement($("#activateButton")[0]);
+                showElement($("#deactivateButton")[0]);
+            });
+    }
+
+    function deactivateInstitution(id){
+            $.post("/institution/" + id + "/deactivate", function() {
+                hideElement($("#deactivateButton")[0]);
+                showElement($("#activateButton")[0]);
+            });
+    }
+    </script>
 {% endblock %}

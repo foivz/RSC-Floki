@@ -1,4 +1,4 @@
-from flask import request, redirect
+from flask import request, redirect, jsonify
 from flask.ext.login import login_required
 from app import app
 from app.DAO import user as userClass, institution as institutionClass
@@ -28,7 +28,7 @@ def approve_registration_request():
 @app.route("/institution/<id>/update", methods=["POST"])
 def update_institution(id):
     data = request.form
-    inst = institution.get_by_id(id)
+    inst = institutionClass.get_by_id(id)
     inst.setName(data["name"])
     inst.setCountry(data["country"])
     inst.setCity(data["city"])
@@ -41,8 +41,24 @@ def update_institution(id):
     inst.setABminusLow(data["AB-low"])
     inst.set0plusLow(data["0+low"])
     inst.set0minusLow(data["0-low"])
-    if data["active"]: inst.activate()
-    else: inst.deactivate()
     inst.save()
 
     return redirect('/super/admin/editInstitution/%s' % id)
+
+@login_required
+@app.route("/institution/<id>/activate", methods=["POST"])
+def activate_institution(id):
+    inst = institutionClass.get_by_id(id)
+    inst.activate()
+    inst.save()
+
+    return jsonify()
+
+@login_required
+@app.route("/institution/<id>/deactivate", methods=["POST"])
+def deactivate_institution(id):
+    inst = institutionClass.get_by_id(id)
+    inst.deactivate()
+    inst.save()
+
+    return jsonify()
