@@ -74,7 +74,7 @@ class User:
         json = {}
         json["numDonations"] = self.getNumDonations()
         json["achivements"] = self.getAchivements()
-        json["bloodType"] = self["bloodType"]
+        json["bloodType"] = {"AB0":self["AB0"],"RH":self["RH"]}
         json["country"] = self["country"]
         return json
 
@@ -111,17 +111,19 @@ class UserDocument(Document):
     use_dot_notation = True
 
     structure = {
-        'country'  : basestring,
         'username' : basestring,
         'password' : basestring,
+        'country'  : basestring,
         'type' : basestring,
         'name' : basestring,
         'surname' : basestring,
         'city' : basestring,
         'address' : basestring,
-        'bloodType' : basestring
+        'AB0' : None,
+        'RH' : None
     }
 
     default_values = {
-        'bloodType':None
+        'AB0': None,
+        'RH': None
     }

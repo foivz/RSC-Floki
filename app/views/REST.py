@@ -1,3 +1,4 @@
+import hashlib
 from os import abort
 from flask import jsonify, request
 from app import app
@@ -7,6 +8,23 @@ from app.core import Functions
 
 __author__ = 'Davor Obilinovic'
 
+
+@app.route("/REST/donors")
+def register_donor():
+    try:
+        data = request.args
+        doc = mongo.UserDocumen()
+        doc["username"] = data["username"]
+        doc["password"] = hashlib.sha1(data["username"]).hexDigest()
+        doc["AB0"] = data["AB0"] if "AB0" in data.keys() else None
+        doc["RH"] = data["RH"] if "RH" in data.keys() else None
+        doc["name"] = data["name"]
+        doc["surname"] = data["surname"]
+        doc["country"] = data["country"]
+        doc.save()
+        return jsonify(status="OK")
+    except Exception as e:
+        return jsonify(status=e.message)
 
 @app.route("/REST/profile")
 def rest_profile():
