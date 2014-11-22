@@ -36,6 +36,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Autocomplete script -->
+    <script src="/static/js/jquery.autocomplete.js"></script>
+    <link rel="stylesheet" href="/static/jqwidgets/styles/jqx.base.css" type="text/css"/>
+    <style>
+        .autocomplete-suggestions { border: 1px solid #999; border-bottom-left-radius: 5px; border-bottom-right-radius: 3px; background: #DEF; overflow: auto; }
+        .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+        .autocomplete-selected { background: #D0E0F0; }
+        .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+    </style>
+
     {% block head %}{% endblock %}
 
 </head>
@@ -272,7 +282,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input class="control-form" type="text" id="mainSearch" placeholder="Search ..." autocomplete="off">
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <i class="fa fa-search"></i>
@@ -321,6 +331,18 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/static/js/sb-admin-2.js"></script>
+
+    <script type="text/javascript">
+        var mainSearch = $('#mainSearch');
+        mainSearch.autocomplete({
+            serviceUrl: '/autocomplete/users',
+            onSelect: function (suggestion) {
+                window.location = '/donationEvent/'+suggestion.value;
+            }
+        });
+        if ('{{ page }}' == 'card-info') mainSearch.focus();
+
+    </script>
     {% block scripts %}{% endblock %}
 
 </body>

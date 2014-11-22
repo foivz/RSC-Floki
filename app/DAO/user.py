@@ -91,5 +91,5 @@ class UserDocument(Document):
         'name' : basestring,
         'surname' : basestring,
         'city' : basestring,
-        'address' : basestring,
+        'address' : basestring
     }
