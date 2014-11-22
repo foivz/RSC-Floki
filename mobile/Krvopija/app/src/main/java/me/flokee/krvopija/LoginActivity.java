@@ -5,10 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -268,7 +265,10 @@ public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<
                 editor.putString("token", s.getToken());
                 editor.putString("username", username);
                 editor.commit();
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 finish();
+                startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

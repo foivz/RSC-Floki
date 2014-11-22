@@ -38,6 +38,8 @@ public class MainActivity extends ActionBarActivity {
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private String token;
+
     private DrawerLayout drawerLayoutt;
     private ListView listView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -65,6 +67,9 @@ public class MainActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         context = getApplicationContext();
+
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        token = prefs.getString("token", null);
 
         // Check device for Play Services APK.
         if (checkPlayServices()) {
