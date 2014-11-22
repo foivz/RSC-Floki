@@ -2,7 +2,11 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:padding="2dp">
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp"
+              android:paddingLeft="2dp"
+              android:paddingRight="2dp"
+              android:descendantFocusability="blocksDescendants" >
 
     <ImageView
         android:id="@+id/thumbnail"
@@ -19,6 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="8dp"
+        android:textSize="@dimen/abc_text_size_medium_material"
         android:maxLines="3" />
 
 </LinearLayout>
