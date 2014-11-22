@@ -149,6 +149,9 @@ def get_all_institutions_array():
         ret.append(inst)
     return ret
 
+def uuidStr():
+    return str(uuid.uuid4())
+
 @mongo.register
 class InstitutionDocument(Document):
     __database__ = configParser.get("Mongo","DBname")
@@ -174,7 +177,7 @@ class InstitutionDocument(Document):
     }
 
     default_values = {
-        'id' : uuid.uuid4,
+        'id' : uuidStr,
         'A+low' : 0.0,
         'A-low' : 0.0,
         'B+low' : 0.0,

@@ -54,6 +54,9 @@ def get_by_id(id):
         return Event(doc)
     return None
 
+def uuidStr():
+    return str(uuid.uuid4())
+
 @mongo.register
 class EventDocument(Document):
     __database__ = configParser.get("Mongo","DBname")
@@ -76,5 +79,5 @@ class EventDocument(Document):
         'status' : ' ',
         'date' : datetime.utcnow,
         'weight' : 0.0,
-        'id' : uuid.uuid4
+        'id' : uuidStr
     }

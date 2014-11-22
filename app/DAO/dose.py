@@ -60,6 +60,9 @@ def get_by_id(id):
         return Dose(doc)
     return None
 
+def uuidStr():
+    return str(uuid.uuid4())
+
 @mongo.register
 class DoseDocument(Document):
     __database__ = configParser.get("Mongo","DBname")
@@ -78,7 +81,7 @@ class DoseDocument(Document):
     }
 
     default_values = {
-        'id' : uuid.uuid4(),
+        'id' : uuidStr,
         'dateCreated' : datetime.utcnow,
         'status' : 'available'
     }
