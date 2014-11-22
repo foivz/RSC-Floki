@@ -33,7 +33,7 @@ class Institution:
         return
 
     def setAddress(self, address, save=False):
-        self.document['address'] = str(address)
+        self.document['address'] = address
         if(save): self.save()
         return
 
