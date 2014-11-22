@@ -44,7 +44,7 @@ def login_donor():
     data = request.args
     username, password = data["username"],data["password"]
     user = userClass.get_by_username(username)
-    if not user.check_password(password):
+    if not user or not user.check_password(password):
         return jsonify(status="auth fail")
     token = Functions.create_session(user)
     return jsonify(status="OK", token=token)
