@@ -8,9 +8,9 @@ from app.DAO import mongo, configParser
 __author__ = 'Luka Strizic'
 
 
-class Dose:
+class Event:
     def __init__(self, document):
-        assert(isinstance(document, DoseDocument))
+        assert(isinstance(document, EventDocument))
         self.document = document
 
     def __getitem__(self, item):
@@ -61,24 +61,26 @@ def get_by_id(id):
     return None
 
 @mongo.register
-class DoseDocument(Document):
+class EventDocument(Document):
     __database__ = configParser.get("Mongo","DBname")
-    __collection__ = 'doses'
+    __collection__ = 'events'
 
     use_schemaless = True
     use_dot_notation = True
 
     structure = {
         'id' : basestring,
+        'username' : basestring,
         'institutionID' : basestring,
-        'AB0' : basestring,
-        'Rh' : basestring,
+        'donated' : bool,
         'status' : basestring,
-        'dateCreated' : datetime.datetime
+        'date' : datetime,
+        'weight' : float,
     }
 
     default_values = {
-        'id' : uuid.uuid4,
-        'dateCreated' : datetime.datetime.utcnow,
-        'status' : 'available'
+        'status' : ' ',
+        'date' : datetime.utcnow,
+        'weight' : 0.0,
+        'id' : uuid.uuid4
     }
