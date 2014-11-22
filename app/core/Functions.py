@@ -9,5 +9,9 @@ def push_registration_request(req):
     mongo[configParser.get("Mongo","DBname")].registration_requests.insert(req)
 
 
-def pull_registration_requests(param):
-    return None
+def pull_registration_requests(type):
+    cur =  mongo[configParser.get("Mongo","DBname")].registration_requests.find({"type":type})
+    ret = []
+    for obj in cur:
+        ret.append(obj)
+    return ret

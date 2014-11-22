@@ -8,7 +8,7 @@ __author__ = 'Davor Obilinovic'
 
 @app.route("/super/admin", methods=["GET"])
 def super_admin():
-    return render_template("admin/AdminPage.html",
+    return render_template("admin/registrationRequests.html",
                            worker_registation_requests = Functions.pull_registration_requests("worker"),
                            institution_registation_requests = Functions.pull_registration_requests("institution"),
                            user=current_user)
