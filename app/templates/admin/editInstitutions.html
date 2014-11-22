@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Edit</th>
                             <th>Institution Name</th>
                             <th>Blood levels</th>
                             <th>City</th>
@@ -30,6 +31,7 @@
                             {% for institution in institutions %}
                                 <td>{{ loop.index }}</td>
                                 <td>{{ institution["name"] }}</td>
+                                <td><i class="fa-cog grey"></i></td>
                                 {% if institution.warning() %}
                                 <td><i class="fa-warning red"></i></td>
                                 {% else %}
