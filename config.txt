@@ -1,5 +1,6 @@
 [Mongo]
-URI = localhost:27017
-DBname = Magic2
-username = Decl
-password = Builder
+host = 185.53.129.19
+port = 27017
+DBname = Floki
+username = Floki
+password = flokeeee
