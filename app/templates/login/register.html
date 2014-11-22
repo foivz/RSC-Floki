@@ -37,12 +37,30 @@
                         <h3 class="panel-title">Registration:</h3>
                     </div>
                     <div class="panel-body">
+                        {%  set is_worker = type =="worker" %}
                         <form role="form" action="/{{ type }}/register" method="post">
                             <fieldset>
+
+                                {% if is_worker  %}
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input class="form-control" placeholder="Min 6 chars" name="username" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input class="form-control" type="password" placeholder="Min 6 chars" name="password" >
+                                    </div>
+                                {% endif %}
                                 <div class="form-group">
-                                    <label>Institution name:</label>
-                                    <input class="form-control" placeholder="Full institution name" name="name" autofocus>
+                                    <label>Name:</label>
+                                    <input class="form-control" placeholder="Name" name="name" {% if not is_worker %}autofocus{% endif %}>
                                 </div>
+                                {% if is_worker  %}
+                                    <div class="form-group">
+                                        <label>Surname:</label>
+                                        <input class="form-control" placeholder="Surname" name="surname" >
+                                    </div>
+                                {% endif %}
                                 <div class="form-group">
                                     <label>City:</label>
                                     <input class="form-control" placeholder="Home city" name="city" value="">
@@ -51,12 +69,12 @@
                                     <label>Address:</label>
                                     <input class="form-control" placeholder="Full address" name="address" value="">
                                 </div>
-                                {% if institutions %}
+                                {% if is_worker %}
                                 <div class="form-group">
                                     <label>Institution:</label>
                                     <select class="form-control" name="institution">
                                         {% for institution in insttitutions %}
-                                            <option>{{ institution.name }}, {{ institution.city }}</option>
+                                            <option value="{{ institution.id }}">{{ institution.name }}, {{ institution.city }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
