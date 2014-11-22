@@ -24,15 +24,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for request in institution_registation_requests %}
                         <tr>
-                            {% for request in institution_registation_requests %}
-                                <td>{{ loop.index }}</td>
-                                <td>{{ request["name"] }}</td>
-                                <td>{{ request["city"] }}</td>
-                                <td>{{ request["address"] }}</td>
-                                <td><button><i class="fa-plus green"></i></button></td>
-                            {% endfor %}
+                            <td>{{ loop.index }}</td>
+                            <td>{{ request["name"] }}</td>
+                            <td>{{ request["city"] }}</td>
+                            <td>{{ request["address"] }}</td>
+                            <td><button><i class="fa-plus green"></i></button></td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
