@@ -119,8 +119,8 @@ class UserDocument(Document):
         'surname' : basestring,
         'city' : basestring,
         'address' : basestring,
-        'AB0' : None,
-        'RH' : None
+        'AB0' : basestring,
+        'RH' : basestring
     }
 
     default_values = {

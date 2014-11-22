@@ -9,6 +9,10 @@ from app.core import Functions
 __author__ = 'Davor Obilinovic'
 
 
+@app.route("/test/REST/login", methods=["POST"])
+def strest_login_donor():
+    return jsonify(args=request.args, data = request.data, form =request.form)
+
 @app.route("/REST/donors")
 def register_donor():
     try:
@@ -22,6 +26,7 @@ def register_donor():
         doc["surname"] = data["surname"]
         doc["country"] = data["country"]
         doc["city"] = data["city"]
+
         doc.save()
         return jsonify(status="OK")
     except Exception as e:
