@@ -1,1 +1,1 @@
-web: python MagicApp.py
+web: python run.py
