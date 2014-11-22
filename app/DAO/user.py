@@ -1,7 +1,9 @@
 import datetime
 import hashlib
+from flask import jsonify
 from mongokit import Document
 from app.DAO import mongo, configParser
+from app.DAO.event import Event
 
 __author__ = 'Davor Obilinovic'
 
@@ -34,6 +36,9 @@ class User:
     def get_id(self):
         return self.document["username"]
 
+    def get_username(self):
+        return self.get_id()
+
     def profilePictureUrl(self):
         try:
             return "http://graph.facebook.com/"+self.document["facebook_name"]+"/picture?type=large"
@@ -54,6 +59,28 @@ class User:
 
     def isSuperAdmin(self):
         return self.document['type'] == 'superadmin'
+
+    def getDonations(self):
+        cur = mongo.EventDocument.find({"type":"donation", "user":self.get_username()})
+        donations = []
+        for obj in cur:
+            donations.append(Event(obj))
+        return donations
+
+    def getNumDonations(self):
+        return len(self.getDonations())
+
+    def getProfileJson(self):
+        json = {}
+        json["numDonations"] = self.getNumDonations()
+        json["achivements"] = self.getAchivements()
+        json["bloodType"] = self["bloodType"]
+        json["country"] = self["country"]
+        return json
+
+    def getAchivements(self):
+        return  ["prva donacija", "nesto drugo","TODO this"]
+
 
 def get_by_username(username):
     doc = mongo.UserDocument.find_one({'username':username})
@@ -91,5 +118,10 @@ class UserDocument(Document):
         'name' : basestring,
         'surname' : basestring,
         'city' : basestring,
-        'address' : basestring
+        'address' : basestring,
+        'bloodType' : basestring
+    }
+
+    default_values = {
+        'bloodType':None
     }

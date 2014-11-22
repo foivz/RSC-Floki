@@ -17,67 +17,112 @@
             <div class="well">
                 <h4>Institution</h4>
                 <form role="form" method="post", action="/institution/{{ id }}/update">
-                    <div class="form-group">
+                    <div class="row rowSpace">
                         <label>Name</label>
                         <input class="form-control" name="name" value="{{ institution.name }}">
                     </div>
-                    <div class="form-group">
+                    <div class="row rowSpace">
                         <label>Country</label>
                         <input class="form-control" name="country" value="{{ institution.country }}">
                     </div>
-                    <div class="form-group">
+                    <div class="row rowSpace">
                         <label>City</label>
                         <input class="form-control" name="city" value="{{ institution.city }}">
                     </div>
-                    <div class="form-group">
+                    <div class="row rowSpace">
                         <label>Address</label>
                         <input class="form-control" name="address" value="{{ institution.address }}">
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>A+ warning limit</label>
-                            <input class="form-control" name="A+low" value="{{ institution.getAplus() }}">
+                    <div class="row rowSpace">
+                        <div class="col-lg-2 columnSpace">
+                            <div class="row rowSpace">
+                                <label>A+ warning limit</label>
+                                <input class="form-control" name="A+low" value="{{ institution['A+low'] }}">
+                            </div>
+                            <div class="row rowSpace">
+                                <label>B+ warning limit</label>
+                                <input class="form-control" name="B+low" value="{{ institution['B+low'] }}">
+                            </div>
+                            <div class="row rowSpace">
+                                <label>AB+ warning limit</label>
+                                <input class="form-control" name="AB+low" value="{{ institution['AB+low'] }}">
+                            </div>
+                            <div class="row rowSpace">
+                                <label>0+ warning limit</label>
+                                <input class="form-control" name="0+low" value="{{ institution['0+low'] }}">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>B+ warning limit</label>
-                            <input class="form-control" name="B+low" value="{{ institution.getBplus() }}">
+                        <div class="col-lg-2 columnSpace">
+                            <div class="row rowSpace">
+                                <label>A- warning limit</label>
+                                <input class="form-control" name="A-low" value="{{ institution['A-low'] }}">
+                            </div>
+                            <div class="row rowSpace">
+                                <label>B- warning limit</label>
+                                <input class="form-control" name="B-low" value="{{ institution['B-low'] }}">
+                            </div>
+                            <div class="row rowSpace">
+                                <label>AB- warning limit</label>
+                                <input class="form-control" name="AB-low" value="{{ institution['AB-low'] }}">
+                            </div>
+                            <div class="row rowSpace">
+                                <label>0- warning limit</label>
+                                <input class="form-control" name="0-low" value="{{ institution['0-low'] }}">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>AB+ warning limit</label>
-                            <input class="form-control" name="AB+low" value="{{ institution.getABplus() }}">
+                        <div class="col-lg-2 columnSpace">
+                            <div class="row rowSpace">
+                                <label>A+ level</label>
+                                <p>{{ institution.getAplus() * 0.45 }} litres</p>
+                            </div>
+                            <div class="row rowSpace">
+                                <label>B+ level</label>
+                                <p>{{ institution.getBplus() * 0.45 }} litres</p>
+                            </div>
+                            <div class="row rowSpace">
+                                <label>AB+ level</label>
+                                <p>{{ institution.getABplus() * 0.45 }} litres</p>
+                            </div>
+                            <div class="row rowSpace">
+                                <label>0+ level</label>
+                                <p>{{ institution.get0plus() * 0.45 }} litres</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>0+ warning limit</label>
-                            <input class="form-control" name="0+low" value="{{ institution.get0plus() }}">
+                        <div class="col-lg-2 columnSpace">
+                            <div class="row rowSpace">
+                                <label>A- level</label>
+                                <p>{{ institution.getAminus() * 0.45 }} litres</p>
+                            </div>
+                            <div class="row rowSpace">
+                                <label>B- level</label>
+                                <p>{{ institution.getBminus() * 0.45 }} litres</p>
+                            </div>
+                            <div class="row rowSpace">
+                                <label>AB- level</label>
+                                <p>{{ institution.getABminus() * 0.45 }} litres</p>
+                            </div>
+                            <div class="row rowSpace">
+                                <label>0- level</label>
+                                <p>{{ institution.get0minus() * 0.45 }} litres</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>A- warning limit</label>
-                            <input class="form-control" name="A-low" value="{{ institution.getAminus() }}">
-                        </div>
-                        <div class="form-group">
-                            <label>B- warning limit</label>
-                            <input class="form-control" name="B-low" value="{{ institution.getBminus() }}">
-                        </div>
-                        <div class="form-group">
-                            <label>AB- warning limit</label>
-                            <input class="form-control" name="AB-low" value="{{ institution.getABminus() }}">
-                        </div>
-                        <div class="form-group">
-                            <label>0- warning limit</label>
-                            <input class="form-control" name="0-low" value="{{ institution.get0minus() }}">
-                        </div>
+                <div class="row rowSpace">
+                    <div class="col-lg-2 columnSpace"></div>
+                    <div class="col-lg-3 columnSpace">
+                        <button class="btn btn-default" type="submit">Submit</button>
                     </div>
-                    <button class="btn btn-default" type="submit">Submit</button>
+                    <div class="col-lg-3 columnSpace">
+                    {% if institution.active %}
+                        <button class="btn btn-default hidden" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
+                        <button class="btn btn-default" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                    {% else %}
+                        <button class="btn btn-default" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
+                        <button class="btn btn-default hidden" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                    {% endif %}
+                    </div>
+                </div>
                 </form>
-                {% if institution.active %}
-                    <button class="btn btn-default hidden" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
-                    <button class="btn btn-default" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
-                {% else %}
-                    <button class="btn btn-default" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
-                    <button class="btn btn-default hidden" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
-                {% endif %}
             </div>
         </div>
         <!-- /.col-lg-12 -->

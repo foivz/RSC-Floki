@@ -21,3 +21,12 @@ def get_request_by_id(id):
 
 def remove_request_by_id(id):
     return  mongo[configParser.get("Mongo","DBname")].registration_requests.remove({"id":id})
+
+def create_session(user):
+    token = str(uuid.uuid4())
+    mongo[configParser.get("Mongo","DBname")].tokens.insert({"username":user.get_username(),"token":token})
+    return token
+
+
+def get_username_from_token(token):
+    return mongo[configParser.get("Mongo","DBname")].tokens.findOne({"token":token})

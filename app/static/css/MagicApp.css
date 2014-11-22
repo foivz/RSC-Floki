@@ -13,3 +13,12 @@
 .bg-blue{
     background-color: #0b70b7;
 }
+
+.rowSpace{
+    margin-top : 10px;
+}
+
+.columnSpace{
+    margin-left : 20px;
+    margin-right : 20px;
+}
