@@ -22,3 +22,7 @@ def login_Page():
             login_user(u)
             return redirect("/")
     return render_template('login.html')
+
+@app.route("/register/<type>", methods=["POST","GET"])
+def register(type):
+    return render_template("register.html")
