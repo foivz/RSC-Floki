@@ -74,11 +74,11 @@ class DoseDocument(Document):
         'AB0' : basestring,
         'Rh' : basestring,
         'status' : basestring,
-        'dateCreated' : datetime.datetime
+        'dateCreated' : datetime
     }
 
     default_values = {
-        'id' : uuid.uuid4,
-        'dateCreated' : datetime.datetime.utcnow,
+        'id' : uuid.uuid4(),
+        'dateCreated' : datetime.utcnow,
         'status' : 'available'
     }

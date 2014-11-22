@@ -143,6 +143,12 @@ def get_by_id(id):
 def get_all_institutions_cursor():
     return mongo.InstitutionDocument.find()
 
+def get_all_institutions_array():
+    ret =[]
+    for inst in get_all_institutions_cursor():
+        ret.append(inst)
+    return ret
+
 @mongo.register
 class InstitutionDocument(Document):
     __database__ = configParser.get("Mongo","DBname")
