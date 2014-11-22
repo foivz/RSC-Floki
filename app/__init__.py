@@ -13,7 +13,7 @@ login_manager.login_view = "/login"
 login_manager.session_protection = "strong"
 
 
-from views import login, pages, admin, callbacks, checks
+from views import login, pages, admin, callbacks, checks, autocomplete
 
 @login_manager.user_loader
 def load_user(userId):
