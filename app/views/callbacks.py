@@ -1,6 +1,7 @@
 from flask import request, redirect
 from flask.ext.login import login_required
 from app import app
+from app.DAO import mongo
 from app.core import Functions
 import app.DAO.institution as institution
 import app.DAO.user as user
@@ -16,7 +17,7 @@ def approve_registration_request():
 
     doc = None
     if req['type'] == 'worker':
-        doc = user.UserDocument()
+        doc = mongo.UserDocument()
         doc['username'] = req['username']
         doc['password'] = req['password']
         doc['type'] = req['type']
@@ -26,7 +27,7 @@ def approve_registration_request():
         doc['address'] = req['address']
         doc['institutionID'] = req['institutionID']
     elif req['type'] == 'institution':
-        doc = institution.InstitutionDocument()
+        doc = mongo.InstitutionDocument()
         doc['name'] = req['name']
         doc['city'] = req['city']
         doc['address'] = req['address']
