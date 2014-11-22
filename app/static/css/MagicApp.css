@@ -2,16 +2,10 @@
    display: none;
 }
 
-#middle-content{
-    padding: 20px 25px 0px 25px ;
+.blue {
+    color: blue;
 }
 
-#cardImage{
-    width:298px;
-    height: 431px;
-    background-position: -7px -7px;
-}
-
-td{
-    padding: 20px;
+.bg-blue{
+    background-color: #0b70b7;
 }
