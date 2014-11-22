@@ -21,6 +21,7 @@ def register_donor():
         doc["name"] = data["name"]
         doc["surname"] = data["surname"]
         doc["country"] = data["country"]
+        doc["city"] = data["city"]
         doc.save()
         return jsonify(status="OK")
     except Exception as e:
