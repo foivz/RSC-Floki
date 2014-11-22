@@ -13,7 +13,7 @@ login_manager.login_view = "/login"
 login_manager.session_protection = "strong"
 
 
-from views import login, pages
+from views import login, pages, admin
 
 @login_manager.user_loader
 def load_user(userId):

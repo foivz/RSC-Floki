@@ -4,6 +4,7 @@ from werkzeug.utils import redirect
 from app import app
 from app.DAO import user, mongo
 from app.core import Functions
+from app.DAO import institution
 
 __author__ = 'Davor Obilinovic'
 
@@ -38,6 +39,8 @@ def register_institution(type):
             registration_request["institution"] = data["institution"]
         Functions.push_registration_request(registration_request)
     institutions = None
-    # if type == "worker":
-    #     institutions = institution.get_all_institutions()
-    return render_template("login/register.html")
+    if type == "worker":
+        institutions = institution.get_all_institutions_array()
+    return render_template("login/register.html",
+                           type=type,
+                           institutions = institutions)
