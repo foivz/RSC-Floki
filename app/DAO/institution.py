@@ -23,12 +23,12 @@ class Institution:
         self.document.save()
 
     def setCountry(self, country, save=False):
-        self.document['country'] = str(country)
+        self.document['country'] = country
         if(save): self.save()
         return
 
     def setCity(self, city, save=False):
-        self.document['city'] = str(city)
+        self.document['city'] = city
         if(save): self.save()
         return
 
@@ -38,7 +38,7 @@ class Institution:
         return
 
     def setName(self, name, save=False):
-        self.document['name'] = str(name)
+        self.document['name'] = name
         if(save): self.save()
         return
 
