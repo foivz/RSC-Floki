@@ -22,6 +22,11 @@ class Institution:
     def save(self):
         self.document.save()
 
+    def setCountry(self, country, save=False):
+        self.document['country'] = str(country)
+        if(save): self.save()
+        return
+
     def setCity(self, city, save=False):
         self.document['city'] = str(city)
         if(save): self.save()
@@ -134,6 +139,17 @@ class Institution:
                                         'Rh' : '-',
                                         'status' : 'available'}).count()
 
+    def warning(self):
+        ret =  self.getAplus() <= self.document['A+low'] or \
+                self.getAminus() <= self.document['A-low'] or \
+                self.getBplus() <= self.document['B+low'] or \
+                self.getBminus() <= self.document['B-low'] or \
+                self.getABplus() <= self.document['AB+low'] or \
+                self.getABminus() <= self.document['AB-low'] or \
+                self.get0plus() <= self.document['0+low'] or \
+                self.get0minus() <= self.document['0-low']
+        return ret
+
 def get_by_id(id):
     doc = mongo.InstitutionDocument.find_one({'id':id})
     if (doc):
@@ -146,7 +162,7 @@ def get_all_institutions_cursor():
 def get_all_institutions_array():
     ret =[]
     for inst in get_all_institutions_cursor():
-        ret.append(inst)
+        ret.append(Institution(inst))
     return ret
 
 def uuidStr():
@@ -161,6 +177,7 @@ class InstitutionDocument(Document):
     use_dot_notation = True
 
     structure = {
+        'country' : basestring,
         'city' : basestring,
         'address' : basestring,
         'name' : basestring,
@@ -178,13 +195,13 @@ class InstitutionDocument(Document):
 
     default_values = {
         'id' : uuidStr,
-        'A+low' : 0.0,
-        'A-low' : 0.0,
-        'B+low' : 0.0,
-        'B-low' : 0.0,
-        'AB+low' : 0.0,
-        'AB-low' : 0.0,
-        '0+low' : 0.0,
-        '0-low' : 0.0,
-        'active' : False
+        'A+low' : 1.0,
+        'A-low' : 1.0,
+        'B+low' : 1.0,
+        'B-low' : 1.0,
+        'AB+low' : 1.0,
+        'AB-low' : 1.0,
+        '0+low' : 1.0,
+        '0-low' : 1.0,
+        'active' : True
     }

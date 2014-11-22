@@ -46,6 +46,15 @@ class User:
         digest =  m.hexdigest()
         return digest == self.document["password"]
 
+    def isWorker(self):
+        return self.document['type'] in ['worker', 'admin', 'superadmin']
+
+    def isAdmin(self):
+        return self.document['type'] in ['admin', 'superadmin']
+
+    def isSuperAdmin(self):
+        return self.document['type'] == 'superadmin'
+
 def get_by_username(username):
     doc = mongo.UserDocument.find_one({'username':username})
     if (doc):

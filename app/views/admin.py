@@ -24,3 +24,11 @@ def edit_institutions():
     return render_template("admin/editInstitutions.html",
                            institutions=institution.get_all_institutions_array(),
                            user=current_user)
+
+@login_required
+@app.route("/super/admin/editInstitutions/<id>", methods=["GET"])
+def edit_institution(id):
+    return render_template("admin/editInstitution.html",
+                           institution=institution.get_by_id(id),
+                           user=current_user,
+                           id = id)

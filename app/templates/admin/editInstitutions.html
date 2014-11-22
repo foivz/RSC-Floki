@@ -30,12 +30,12 @@
                         <tr>
                             {% for institution in institutions %}
                                 <td>{{ loop.index }}</td>
+                                <td><a href="editInstitutions/{{ institution.id }}"><i class="fa fa-cog" style="color: grey"></i></td>
                                 <td>{{ institution["name"] }}</td>
-                                <td><i class="fa-cog grey"></i></td>
                                 {% if institution.warning() %}
-                                <td><i class="fa-warning red"></i></td>
+                                <td><i class="fa fa-warning" style="color: red"></i></td>
                                 {% else %}
-                                <td><i class="fa-check green"></i></td>
+                                <td><i class="fa fa-check" style="color: green"></i></td>
                                 {% endif %}
                                 <td>{{ institution["city"] }}</td>
                                 <td>{{ institution["address"] }}</td>

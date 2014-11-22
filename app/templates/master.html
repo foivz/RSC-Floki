@@ -281,6 +281,7 @@
                             </div>
                             <!-- /input-group -->
                         </li>
+                        {% if user.isSuperAdmin() %}
                         <li>
                             <a href="#"><i class="fa fa-book fa-fw"></i> Administration <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -294,6 +295,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

@@ -36,3 +36,26 @@ def approve_registration_request():
     Functions.remove_request_by_id(id)
 
     return redirect('/super/admin/registrationRequests')
+
+@login_required
+@app.route("/institution/<id>/update", methods=["POST"])
+def update_institution(id):
+    data = request.form
+    inst = institution.get_by_id(id)
+    inst.setName(data["name"])
+    inst.setCountry(data["country"])
+    inst.setCity(data["city"])
+    inst.setAddress(data["address"])
+    inst.setAplusLow(data["A+low"])
+    inst.setAminusLow(data["A-low"])
+    inst.setBplusLow(data["B+low"])
+    inst.setBminusLow(data["B-low"])
+    inst.setABplusLow(data["AB+low"])
+    inst.setABminusLow(data["AB-low"])
+    inst.set0plusLow(data["0+low"])
+    inst.set0minusLow(data["0-low"])
+    if data["active"]: inst.activate()
+    else: inst.deactivate()
+    inst.save()
+
+    return redirect('/super/admin/editInstitution/%s' % id)
