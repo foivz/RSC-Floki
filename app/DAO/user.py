@@ -44,8 +44,6 @@ class User:
         m = hashlib.sha1()
         m.update(password)
         digest =  m.hexdigest()
-        if password=="abc":
-            return True
         return digest == self.document["password"]
 
 def get_by_username(username):
@@ -58,7 +56,6 @@ def get_by_username(username):
 class UserDocument(Document):
     __database__ = configParser.get("Mongo","DBname")
     __collection__ = 'users'
-    #__database__ = config.DB
 
     use_schemaless = True
     use_dot_notation = True
@@ -66,6 +63,5 @@ class UserDocument(Document):
     structure = {
         'username' : basestring,
         'password' : basestring,
-        'email' : basestring,
-        'facebook_name' : basestring
+        'roles' : basestring
     }
