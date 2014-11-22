@@ -5,7 +5,7 @@ __author__ = 'Davor Obilinovic'
 
 
 def push_registration_request(req):
-    req["id"] = uuid.uuid4()
+    req["id"] = str(uuid.uuid4())
     mongo[configParser.get("Mongo","DBname")].registration_requests.insert(req)
 
 
