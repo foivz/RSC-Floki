@@ -63,5 +63,9 @@ class UserDocument(Document):
     structure = {
         'username' : basestring,
         'password' : basestring,
-        'roles' : basestring
+        'type' : basestring,
+        'name' : basestring,
+        'surname' : basestring,
+        'city' : basestring,
+        'address' : basestring,
     }

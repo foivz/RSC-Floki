@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>RSC-Floki</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="/static/css/MagicApp.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Registration:</h3>
+                    </div>
+                    <div class="panel-body">
+                        {%  set is_worker = type =="worker" %}
+                        <form role="form" action="/{{ type }}/register" method="post">
+                            <fieldset>
+
+                                {% if is_worker  %}
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input class="form-control" placeholder="Min 6 chars" name="username" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input class="form-control" type="password" placeholder="Min 6 chars" name="password" >
+                                    </div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input class="form-control" placeholder="Name" name="name" {% if not is_worker %}autofocus{% endif %}>
+                                </div>
+                                {% if is_worker  %}
+                                    <div class="form-group">
+                                        <label>Surname:</label>
+                                        <input class="form-control" placeholder="Surname" name="surname" >
+                                    </div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <label>City:</label>
+                                    <input class="form-control" placeholder="Home city" name="city" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address:</label>
+                                    <input class="form-control" placeholder="Full address" name="address" value="">
+                                </div>
+                                {% if is_worker %}
+                                <div class="form-group">
+                                    <label>Institution:</label>
+                                    <select class="form-control" name="institution">
+                                        {% for institution in insttitutions %}
+                                            <option value="{{ institution.id }}">{{ institution.name }}, {{ institution.city }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% endif %}
+                                <button type="submit" class="btn btn-lg btn-info btn-block">Register</button>
+
+                            </fieldset>
+                        </form>
+                        <p>Already have account? <a href="/" >log in here.</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="/static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/js/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
