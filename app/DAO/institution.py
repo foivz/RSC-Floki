@@ -134,6 +134,14 @@ class Institution:
                                         'Rh' : '-',
                                         'status' : 'available'}).count()
 
+def create_institution_from_request(req):
+    doc = mongo.InstitutionDocument()
+    doc['name'] = req['name']
+    doc['city'] = req['city']
+    doc['address'] = req['address']
+    doc['country'] = req['country']
+    return Institution(doc)
+
 def get_by_id(id):
     doc = mongo.InstitutionDocument.find_one({'id':id})
     if (doc):
@@ -146,7 +154,7 @@ def get_all_institutions_cursor():
 def get_all_institutions_array():
     ret =[]
     for inst in get_all_institutions_cursor():
-        ret.append(inst)
+        ret.append(Institution(inst))
     return ret
 
 def uuidStr():
@@ -161,6 +169,7 @@ class InstitutionDocument(Document):
     use_dot_notation = True
 
     structure = {
+        'country' : basestring,
         'city' : basestring,
         'address' : basestring,
         'name' : basestring,

@@ -1,10 +1,8 @@
 from flask import request, redirect
 from flask.ext.login import login_required
 from app import app
-from app.DAO import mongo
+from app.DAO import user as userClass, institution as institutionClass
 from app.core import Functions
-import app.DAO.institution as institution
-import app.DAO.user as user
 
 __author__ = 'Luka Strizic'
 
@@ -17,20 +15,9 @@ def approve_registration_request():
 
     doc = None
     if req['type'] == 'worker':
-        doc = mongo.UserDocument()
-        doc['username'] = req['username']
-        doc['password'] = req['password']
-        doc['type'] = req['type']
-        doc['name'] = req['name']
-        doc['surname'] = req['surname']
-        doc['city'] = req['city']
-        doc['address'] = req['address']
-        doc['institutionID'] = req['institutionID']
+        doc = userClass.create_from_request(req)
     elif req['type'] == 'institution':
-        doc = mongo.InstitutionDocument()
-        doc['name'] = req['name']
-        doc['city'] = req['city']
-        doc['address'] = req['address']
+        doc = institutionClass.create_institution_from_request(req)
 
     doc.save()
     Functions.remove_request_by_id(id)

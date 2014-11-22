@@ -19,6 +19,7 @@
                         <th>First Name</th>
                         <th>City</th>
                         <th>Address</th>
+                        <th>Country</th>
                         <th>Approove</th>
                     </tr>
                 </thead>
@@ -29,6 +30,7 @@
                         <td>{{ request["name"] }}</td>
                         <td>{{ request["city"] }}</td>
                         <td>{{ request["address"] }}</td>
+                        <td>{{ request["country"] }}</td>
                         <td>
                             <form action="/super/admin/approveRequestCallback" method="post">
                                 <input type="hidden" name="id" value="{{ request["id"] }}">
@@ -55,6 +57,7 @@
                         <th>Surename</th>
                         <th>City</th>
                         <th>Address</th>
+                        <th>Country</th>
                         <th>Institution</th>
                         <th>Approve</th>
                     </tr>
@@ -67,6 +70,7 @@
                         <td>{{ request["surename"] }}</td>
                         <td>{{ request["city"] }}</td>
                         <td>{{ request["address"] }}</td>
+                        <td>{{ request["country"] }}</td>
                         <td>{{ request["institution"] }}</td>
                         <td>
                             <form action="/super/admin/approveRequestCallback" method="post">

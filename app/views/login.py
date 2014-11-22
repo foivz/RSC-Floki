@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import request, render_template, redirect
 from flask.ext.login import login_required, logout_user, login_user
 from werkzeug.utils import redirect
 from app import app
@@ -33,11 +33,17 @@ def register_institution(type):
             'type' : type,
             'name' : data["name"],
             'city' : data["city"],
+            'country' : data['country'],
             'address' : data["address"]
         }
         if type == "worker":
-            registration_request["institution"] = data["institution"]
+            registration_request["institutionID"] = data["institution"]
+            registration_request['username'] = data['username']
+            registration_request['password'] = data['password']
+            registration_request['surname'] = data['surname']
+
         Functions.push_registration_request(registration_request)
+        return redirect('/login')
     institutions = None
     if type == "worker":
         institutions = institution.get_all_institutions_array()
