@@ -22,7 +22,7 @@ def login_Page():
         if u and u.check_password(password):
             login_user(u)
             return redirect("/")
-    return render_template('login/login/login.html')
+    return render_template('login/login.html')
 
 @app.route("/<type>/register", methods=["POST","GET"])
 def register_institution(type):
