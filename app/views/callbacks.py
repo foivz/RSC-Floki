@@ -9,7 +9,7 @@ __author__ = 'Luka Strizic'
 
 @login_required
 @app.route("/super/admin/approveRequestCallback", methods=["POST"])
-def registration_requests():
+def approve_registration_request():
     data = request.form
     id = data["id"]
     req = Functions.get_request_by_id(id)
@@ -17,14 +17,14 @@ def registration_requests():
     doc = None
     if req['type'] == 'worker':
         doc = user.UserDocument()
-        doc['username'] = basestring
-        doc['password'] = basestring
-        doc['type'] = basestring
-        doc['name'] = basestring
-        doc['surname'] = basestring
-        doc['city'] = basestring
-        doc['address'] = basestring
-        doc['institutionID'] = basestring
+        doc['username'] = req['username']
+        doc['password'] = req['password']
+        doc['type'] = req['type']
+        doc['name'] = req['name']
+        doc['surname'] = req['surname']
+        doc['city'] = req['city']
+        doc['address'] = req['address']
+        doc['institutionID'] = req['institutionID']
     elif req['type'] == 'institution':
         doc = institution.InstitutionDocument()
         doc['name'] = req['name']
