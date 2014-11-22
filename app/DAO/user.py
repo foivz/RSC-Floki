@@ -1,5 +1,6 @@
 import datetime
 import hashlib
+import institution
 from mongokit import Document
 from app.DAO import mongo, configParser
 
@@ -18,6 +19,56 @@ class User:
         except:
             pass
         return ret
+
+    def setUsername(self, username, save=False):
+        self.document['username'] = username
+        if(save): self.save()
+        return
+
+    def setName(self, name, save=False):
+        self.document['name'] = name
+        if(save): self.save()
+        return
+
+    def setSurname(self, surname, save=False):
+        self.document['surname'] = surname
+        if(save): self.save()
+        return
+
+    def setCountry(self, country, save=False):
+        self.document['country'] = country
+        if(save): self.save()
+        return
+
+    def setCity(self, city, save=False):
+        self.document['city'] = city
+        if(save): self.save()
+        return
+
+    def setAddress(self, address, save=False):
+        self.document['address'] = address
+        if(save): self.save()
+        return
+
+    def setAB0(self, ab0, save=False):
+        self.document['AB0'] = ab0
+        if(save): self.save()
+        return
+
+    def setRh(self, rh, save=False):
+        self.document['Rh'] = rh
+        if(save): self.save()
+        return
+
+    def setInstitutionID(self, id, save=False):
+        self.document['institutionID'] = id
+        if(save): self.save()
+        return
+
+    def setAccountType(self, type, save=False):
+        self.document['type'] = type
+        if(save): self.save()
+        return
 
     def save(self):
         self.document.save()
@@ -55,11 +106,35 @@ class User:
     def isSuperAdmin(self):
         return self.document['type'] == 'superadmin'
 
+    def getInstitutionNameCity(self):
+        if not self.document.has_key('institutionID') : return ""
+        inst = institution.get_by_id(self.document['institutionID'])
+        return inst['name'] + "; " + inst['city']
+
+
 def get_by_username(username):
     doc = mongo.UserDocument.find_one({'username':username})
     if (doc):
         return User(doc)
     return None
+
+def get_all_users_cursor():
+    return mongo.UserDocument.find()
+
+def get_all_workers_cursor():
+    return mongo.UserDocument.find({'$or' : [{'type': 'worker'},{'type': 'admin'},{'type': 'superadmin'}]})
+
+def get_all_users_array():
+    ret =[]
+    for usr in get_all_users_cursor():
+        ret.append(User(usr))
+    return ret
+
+def get_all_workers_array():
+    ret =[]
+    for usr in get_all_workers_cursor():
+        ret.append(User(usr))
+    return ret
 
 def create_from_request(req):
     doc = mongo.UserDocument()

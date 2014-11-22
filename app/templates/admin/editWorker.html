@@ -1,0 +1,74 @@
+{% extends "master.html" %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            {% if user.isSuperAdmin() %}
+            <h1 class="page-header">Super Admin</h1>
+            {% else %}
+            <h1 class="page-header">Admin</h1>
+            {% endif %}
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well">
+                <h4>Worker</h4>
+                <form role="form" method="post", action="/worker/{{ worker['username'] }}/update">
+                    <div class="row rowSpace">
+                        <label>Userame</label>
+                        <input class="form-control" name="username" value="{{ worker['username'] }}">
+                    </div>
+                    <div class="row rowSpace">
+                        <label>Name</label>
+                        <input class="form-control" name="name" value="{{ worker['name'] }}">
+                    </div>
+                    <div class="row rowSpace">
+                        <label>Surname</label>
+                        <input class="form-control" name="surname" value="{{ worker['surname'] }}">
+                    </div>
+                    <div class="row rowSpace">
+                        <label>Country</label>
+                        <input class="form-control" name="country" value="{{ worker['country'] }}">
+                    </div>
+                    <div class="row rowSpace">
+                        <label>City</label>
+                        <input class="form-control" name="city" value="{{ worker['city'] }}">
+                    </div>
+                    <div class="row rowSpace">
+                        <label>Address</label>
+                        <input class="form-control" name="address" value="{{ worker['address'] }}">
+                    </div>
+                    <div class="row rowSpace">
+                        <div class="col-lg-2 columnSpace">
+                            <label>AB0</label>
+                            <input class="form-control" name="AB0" value="{{ worker['AB0'] }}">
+                        </div>
+                        <div class="col-lg-2 columnSpace">
+                            <label>Rh</label>
+                            <input class="form-control" name="Rh" value="{{ worker['Rh'] }}">
+                        </div>
+                        <div class="col-lg-2 columnSpace">
+                            <label>Account type:</label>
+                            {%  if user.isSuperAdmin() %}
+                            <input class="form-control" name="type" value="{{ worker['type'] }}">
+                            {% else %}
+                            <input disabled="" class="form-control" name="type" value="{{ worker['type'] }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-1 columnSpace">
+                            <div class="row rowSpace"></div>
+                            <div class="row rowSpace"></div>
+                            <div class="row rowSpace"></div>
+                            <button class="btn btn-default" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+{% endblock %}

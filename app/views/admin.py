@@ -3,6 +3,7 @@ from flask.ext.login import current_user, login_required
 from app import app
 from app.core import Functions
 import app.DAO.institution as institution
+import app.DAO.user as user
 
 __author__ = 'Davor Obilinovic'
 
@@ -32,3 +33,18 @@ def edit_institution(id):
                            institution=institution.get_by_id(id),
                            user=current_user,
                            id = id)
+
+@login_required
+@app.route("/super/admin/editWorkers", methods=["GET"])
+def edit_workers():
+    return render_template("admin/editWorkers.html",
+                           workers=user.get_all_workers_array(),
+                           user=current_user)
+
+@login_required
+@app.route("/super/admin/editWorkers/<username>", methods=["GET"])
+def edit_worker(username):
+    return render_template("admin/editWorker.html",
+                           worker=user.get_by_username(username),
+                           institutions=institution.get_all_institutions_array(),
+                           user=current_user)

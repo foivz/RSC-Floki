@@ -305,6 +305,18 @@
                             <!-- /.nav-second-level -->
                         </li>
                         {% endif %}
+                        {% if user.isAdmin() %}
+                        <li>
+                            <a href="#"><i class="fa fa-book fa-fw"></i> User Administration <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/super/admin/editWorkers">Edit workers
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

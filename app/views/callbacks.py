@@ -42,7 +42,6 @@ def update_institution(id):
     inst.set0plusLow(float(data["0+low"]))
     inst.set0minusLow(float(data["0-low"]))
     inst.save()
-
     return redirect('/super/admin/editInstitutions/%s' % id)
 
 @login_required
@@ -60,5 +59,21 @@ def deactivate_institution(id):
     inst = institutionClass.get_by_id(id)
     inst.deactivate()
     inst.save()
-
     return jsonify()
+
+@login_required
+@app.route("/worker/<username>/update", methods=["POST"])
+def update_worker(username):
+    data = request.form
+    worker = userClass.get_by_username(username)
+    worker.setUsername(data["username"])
+    worker.setName(data["name"])
+    worker.setSurname(data["surname"])
+    worker.setCountry(data["country"])
+    worker.setCity(data["city"])
+    worker.setAddress(data["address"])
+    worker.setAB0(data["AB0"])
+    worker.setRh(data["Rh"])
+    worker.setAccountType(data["type"])
+    worker.save()
+    return redirect('/super/admin/editWorkers/%s' % data["username"])
