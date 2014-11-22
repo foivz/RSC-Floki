@@ -61,6 +61,20 @@ def get_by_username(username):
         return User(doc)
     return None
 
+def create_from_request(req):
+    doc = mongo.UserDocument()
+    doc['username'] = req['username']
+    passwordHash = hashlib.sha1(req['password']).hexdigest()
+    doc['password'] = passwordHash
+    doc['type'] = req['type']
+    doc['name'] = req['name']
+    doc['surname'] = req['surname']
+    doc['city'] = req['city']
+    doc['address'] = req['address']
+    doc['institutionID'] = req['institutionID']
+    doc['country'] = req['country']
+    return doc
+
 @mongo.register
 class UserDocument(Document):
     __database__ = configParser.get("Mongo","DBname")
@@ -70,6 +84,7 @@ class UserDocument(Document):
     use_dot_notation = True
 
     structure = {
+        'country'  : basestring,
         'username' : basestring,
         'password' : basestring,
         'type' : basestring,

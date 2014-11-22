@@ -40,7 +40,6 @@
                         {%  set is_worker = type =="worker" %}
                         <form role="form" action="/{{ type }}/register" method="post">
                             <fieldset>
-
                                 {% if is_worker  %}
                                     <div class="form-group">
                                         <label>Username:</label>
@@ -69,12 +68,16 @@
                                     <label>Address:</label>
                                     <input class="form-control" placeholder="Full address" name="address" value="">
                                 </div>
+                                <div class="form-group">
+                                    <label>Country:</label>
+                                    <input class="form-control" placeholder="Country" name="country" value="">
+                                </div>
                                 {% if is_worker %}
                                 <div class="form-group">
                                     <label>Institution:</label>
                                     <select class="form-control" name="institution">
-                                        {% for institution in insttitutions %}
-                                            <option value="{{ institution.id }}">{{ institution.name }}, {{ institution.city }}</option>
+                                        {% for institution in institutions %}
+                                            <option value="{{ institution['id'] }}">{{ institution['name'] }}, {{ institution['city'] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

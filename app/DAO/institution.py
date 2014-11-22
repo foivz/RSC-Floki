@@ -150,6 +150,14 @@ class Institution:
                 self.get0minus() <= self.document['0-low']
         return ret
 
+def create_institution_from_request(req):
+    doc = mongo.InstitutionDocument()
+    doc['name'] = req['name']
+    doc['city'] = req['city']
+    doc['address'] = req['address']
+    doc['country'] = req['country']
+    return Institution(doc)
+
 def get_by_id(id):
     doc = mongo.InstitutionDocument.find_one({'id':id})
     if (doc):
