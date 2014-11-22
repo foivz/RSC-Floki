@@ -1,0 +1,5 @@
+[Mongo]
+URI = localhost:27017
+DBname = Magic2
+username = Decl
+password = Builder

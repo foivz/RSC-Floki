@@ -1,2 +1,2 @@
-RSC-Floki
-=========
+MagicApp
+========
