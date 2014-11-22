@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ editedUser["name"] }} {{ editedUser["surname"] }}</h1>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <a class = "btn btn-default btn-info" href="/events/donations/{{ editedUser.get_username() }}">Donation</a>
+            <a class = "btn btn-default btn-warning" href="/editDonors/{{ editedUser.get_username() }}">Edit</a>
+        </div>
+    </div>
+
+{% endblock %}

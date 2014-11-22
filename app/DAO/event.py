@@ -27,19 +27,6 @@ class Event:
         if(save): self.save()
         return
 
-    def setWeight(self, weight, save=False):
-        self.document['weight'] = weight
-        if(save): self.save()
-        return
-
-    def setDonated(self, save=False):
-        self.document['donated'] = True
-        if(save): self.save()
-        return
-
-    def setNotDonated(self, save=False):
-        self.document['donated'] = False
-        if(save): self.save()
         return
 
     def setInstitutionID(self, id, save=False):
@@ -69,15 +56,13 @@ class EventDocument(Document):
         'id' : basestring,
         'username' : basestring,
         'institutionID' : basestring,
-        'donated' : bool,
+        'type' : bool,
         'status' : basestring,
         'date' : datetime,
-        'weight' : float,
     }
 
     default_values = {
         'status' : ' ',
         'date' : datetime.utcnow,
-        'weight' : 0.0,
         'id' : uuidStr
     }

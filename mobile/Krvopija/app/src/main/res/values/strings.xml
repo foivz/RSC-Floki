@@ -16,4 +16,13 @@
         <item>Institutions</item>
         <item>Settings</item>
     </string-array>
+
+    <string-array name="sicks_array">
+        <item>Tattoo</item>
+        <item>Heroin</item>
+    </string-array>
+
+    <string name="title_activity_sick">SickActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

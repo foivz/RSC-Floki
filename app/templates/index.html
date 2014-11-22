@@ -1,6 +1,10 @@
 {% extends "master.html" %}
 {% block content %}
-
-            hello :)
-
+    <div style="padding-top: 30px">
+    {% if user.isWorker() %}
+        <div class="well text-center">
+            <h4>Use search to select some user. </h4>
+        </div>
+    {% endif %}
+    </div>
 {% endblock %}
