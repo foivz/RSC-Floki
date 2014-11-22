@@ -18,3 +18,6 @@ def pull_registration_requests(type):
 
 def get_request_by_id(id):
     return  mongo[configParser.get("Mongo","DBname")].registration_requests.find_one({"id":id})
+
+def remove_request_by_id(id):
+    return  mongo[configParser.get("Mongo","DBname")].registration_requests.remove({"id":id})

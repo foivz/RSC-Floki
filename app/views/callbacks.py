@@ -1,5 +1,5 @@
-from flask import render_template, request
-from flask.ext.login import current_user, login_required
+from flask import request, redirect
+from flask.ext.login import login_required
 from app import app
 from app.core import Functions
 import app.DAO.institution as institution
@@ -25,16 +25,13 @@ def registration_requests():
         doc['city'] = basestring
         doc['address'] = basestring
         doc['institutionID'] = basestring
-        doc.save()
     elif req['type'] == 'institution':
         doc = institution.InstitutionDocument()
         doc['name'] = req['name']
         doc['city'] = req['city']
         doc['address'] = req['address']
-        doc.save()
 
-    return render_template("admin/registrationRequests.html",
-                           worker_registation_requests = Functions.pull_registration_requests("worker"),
-                           institution_registation_requests = Functions.pull_registration_requests("institution"),
-                           total_requests_num = total_requests_num,
-                           user=current_user)
+    doc.save()
+    Functions.remove_request_by_id(id)
+
+    return redirect('/super/admin/registrationRequests')
