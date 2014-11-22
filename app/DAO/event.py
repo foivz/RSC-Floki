@@ -1,6 +1,4 @@
-import datetime
 from datetime import datetime
-import hashlib
 import uuid
 from mongokit import Document
 from app.DAO import mongo, configParser
@@ -24,40 +22,36 @@ class Event:
     def save(self):
         self.document.save()
 
+    def setUsername(self, username, save=False):
+        self.document['username'] = str(username)
+        if(save): self.save()
+        return
+
+    def setWeight(self, weight, save=False):
+        self.document['weight'] = weight
+        if(save): self.save()
+        return
+
+    def setDonated(self, save=False):
+        self.document['donated'] = True
+        if(save): self.save()
+        return
+
+    def setNotDonated(self, save=False):
+        self.document['donated'] = False
+        if(save): self.save()
+        return
+
     def setInstitutionID(self, id, save=False):
         self.document['institutionID'] = str(id)
         if(save): self.save()
         return
 
-    def setAB0(self, ab0, save=False):
-        self.document['AB0'] = str(ab0)
-        if(save): self.save()
-        return
-
-    def setRh(self, rh, save=False):
-        self.document['Rh'] = str(rh)
-        if(save): self.save()
-        return
-
-    def setAvailable(self, save = False):
-        self.document['status'] = 'available'
-        if(save): self.save()
-        return
-
-    def setUnhealthy(self, save = False):
-        self.document['status'] = 'unhealthy'
-        if(save): self.save()
-        return
-
-    def setUnavailable(self, save = False):
-        self.document['status'] = 'unavailable'
-        if(save): self.save()
-        return
 
 def get_by_id(id):
-    doc = mongo.DoseDocument.find_one({'id':id})
+    doc = mongo.EventDocument.find_one({'id':id})
     if (doc):
-        return Dose(doc)
+        return Event(doc)
     return None
 
 @mongo.register

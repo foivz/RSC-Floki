@@ -1,5 +1,3 @@
-import datetime
-import hashlib
 import dose
 import uuid
 from mongokit import Document
