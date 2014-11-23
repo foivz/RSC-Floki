@@ -3,6 +3,7 @@ from flask.ext.login import login_required
 from app import app
 from app.DAO import user as userClass, institution as institutionClass
 from app.core import Functions
+from gcm import GCM
 
 __author__ = 'Luka Strizic'
 
@@ -93,3 +94,27 @@ def update_donor(username):
     worker.setRh(data["Rh"])
     worker.save()
     return redirect('/super/admin/editDonors/%s' % data["username"])
+
+@login_required
+@app.route("/sendNotification", methods=["POST"])
+def notify():
+    data = request.form
+    AB0 = data['AB0']
+    Rh = data['Rh']
+    country = data['country']
+    city = data['city']
+    address = data['address']
+    message = data['message']
+    donors = userClass.get_eligible_donors_array(AB0, Rh, country, city)
+    if not message: message = generateMessage(AB0, Rh, city, address)
+    gcm = GCM('AIzaSyBK9OhEEvws_AFT47BA5fqsiUBHX1Oi6XQ')
+    for donor in donors:
+        if donor['token']:
+            gcm.plaintext_request(donor['token'], message)
+    return redirect('/super/admin')
+
+def generateMessage(AB0, Rh, city, address):
+    if AB0:
+        return "Your blood type is " + AB0 + Rh + " and we would like You to donate some of your blood, because supplies are running low. \
+        You can donate in " + city + " on address " + address + ". Thank You!"
+    return "blood supplies are running low in " + city + " and we would like You to donate. You can do it at " + address + ". Thank you!"

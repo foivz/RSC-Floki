@@ -103,7 +103,7 @@ class User:
         return digest == self.document["password"]
 
     def isWorker(self):
-        return self.document['type'] in ['worker', 'admin', 'superadmin']
+        return self.document['type'] in ['worker', 'admin', 'superadmin'] and self.document.has_key('institutionID') and self.document['institutionID']
 
     def isAdmin(self):
         return self.document['type'] in ['admin', 'superadmin']
@@ -137,6 +137,16 @@ class User:
     def getAchivements(self):
         return  ["prva donacija", "nesto drugo","TODO this"]
 
+    def setNotificationToken(self, token, save=False):
+        self.document['token'] = token
+        if save: self.save()
+        return
+
+    def clearNotificationToken(self, save=False):
+        self.document['token'] = ''
+        if save: self.save()
+        return
+
 def get_by_username(username):
     doc = mongo.UserDocument.find_one({'username':username})
     if (doc):
@@ -169,6 +179,46 @@ def get_all_donors_array():
     for usr in get_all_donors_cursor():
         ret.append(User(usr))
     return ret
+
+def get_eligible_donors_array(AB0, Rh, country, city):
+    ret = []
+    tmp = []
+    if not AB0:
+        AB0 = ['A', 'B', 'AB', '0']
+    if not Rh:
+        Rh = ['+', '-']
+    for donor in mongo.UserDocument.find({'type':'donor', 'country':country,'$in' : [{'AB0':AB0}, {'Rh': Rh}] }):
+        ret.append(User(donor))
+    if country:
+        for donor in ret:
+            if donor['country'] == country:
+                tmp.append(donor)
+        ret = tmp
+        tmp = []
+    if city:
+        for donor in ret:
+            if donor['city'] == city:
+                tmp.append(donor)
+        ret = tmp
+        tmp = []
+    for donor in ret:
+        event = mongo.EventDocument.find({'username':donor['username']}).sort({'date':-1})[0]
+        eventType = event['type']
+        eventDate = event['date']
+        sex = donor['sex']
+        if eventType == 'donation' and sex == 'M' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days=90) or \
+           eventType == 'donation' and sex == 'F' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days=120):
+            pass
+        elif eventType == 'sickness' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days = '14') :
+            pass
+        elif eventType == 'tatooOrPiercing' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days = '180'):
+            pass
+        else:
+            tmp.append(donor)
+    ret = tmp
+    tmp = []
+    return ret
+
 
 def create_from_request(req):
     doc = mongo.UserDocument()

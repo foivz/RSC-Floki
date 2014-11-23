@@ -121,7 +121,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         {% endif %}
-                        {% if user.isWorker() %}
+                        {% if user.isWorker() or user.isAdmin() %}
                         <li>
                             <a href="#"><i class="fa fa-book fa-fw"></i> User Administration <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -135,6 +135,12 @@
                                     <a href="/super/admin/editDonors">Edit donors
                                     </a>
                                 </li>
+                                {% if user.isWorker() %}
+                                <li>
+                                    <a href="/super/admin/sendNotification">Send notification
+                                    </a>
+                                </li>
+                                {% endif %}
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

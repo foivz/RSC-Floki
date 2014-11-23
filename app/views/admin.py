@@ -62,3 +62,9 @@ def edit_donor(username):
     return render_template("admin/editDonor.html",
                            donor=user.get_by_username(username),
                            user=current_user)
+
+@login_required
+@app.route("/super/admin/sendNotification", methods=["GET"])
+def send_notification():
+    return render_template("admin/sendNotification.html",
+                           user=current_user)

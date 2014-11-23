@@ -53,3 +53,18 @@ def login_donor():
 def rest_test():
     return jsonify(status="OK",info={"disi":"frane"})
 
+@app.route("/REST/subscribe")
+def rest_subscribe():
+    token = request.args["token"]
+    username = Functions.get_username_from_token(token)
+    user = userClass.get_by_username(username)
+    user.setNotificationToken(request.args["notificationToken"], True)
+    return
+
+@app.route("/REST/unsubscribe")
+def rest_unsubscribe():
+    token = request.args["token"]
+    username = Functions.get_username_from_token(token)
+    user = userClass.get_by_username(username)
+    user.clearNotificationToken(True)
+    return
