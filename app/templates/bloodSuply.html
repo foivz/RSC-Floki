@@ -35,27 +35,15 @@
                             <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 127px;">CSS grade</th></tr>
                     </thead>
                     <tbody>
+                        {% for institution in institutions %}
                         <tr class="gradeA odd">
-                            <td class="sorting_1">Gecko</td>
-                            <td class="">Camino 1.0</td>
+                            <td class="sorting_1">{{ institution["name"] }}</td>
+                            <td class="">{{ institution[""] }}</td>
                             <td class=" ">OSX.2+</td>
                             <td class="center ">1.8</td>
                             <td class="center ">A</td>
                         </tr>
-                        <tr class="gradeA odd">
-                            <td class="sorting_1">Gecko</td>
-                            <td class="">Camino 1.0</td>
-                            <td class=" ">OSX.2+</td>
-                            <td class="center ">1.8</td>
-                            <td class="center ">A</td>
-                        </tr>
-                        <tr class="gradeA odd">
-                            <td class="sorting_1">Gecko</td>
-                            <td class="">Camino 1.0</td>
-                            <td class=" ">OSX.2+</td>
-                            <td class="center ">1.8</td>
-                            <td class="center ">A</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
                     <div class="row hidden">
