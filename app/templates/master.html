@@ -62,7 +62,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="static/bg.jpg" style="height:50px" class="pull-left"></img>
+                <img src="static/bg.jpg" style="height:50px" class="pull-left">
                 <a class="navbar-brand" href="/">Floki App</a>
             </div>
             <!-- /.navbar-header -->
@@ -80,11 +80,7 @@
                         </li>
                         {% if user.isAdmin() and not user.isSuperAdmin() %}
                         <li>
-<<<<<<< HEAD
-                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-building fa-fw"></i> Institution</a>
-=======
-                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-gear fa-fw"></i> {{ l(c,"institution") }}</a>
->>>>>>> lokalizacija
+                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-building fa-fw"></i> {{ l(c,"institution") }}</a>
                         </li>
                         {% endif %}
                         <li class="divider"></li>
