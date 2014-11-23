@@ -110,8 +110,8 @@ def notify():
     gcm = GCM('AIzaSyBK9OhEEvws_AFT47BA5fqsiUBHX1Oi6XQ')
     for donor in donors:
         if donor['token']:
-            gcm.plaintext_request(donor['token'], message)
-    return redirect('/super/admin')
+            gcm.plaintext_request(donor['token'], {'message':message, 'country':country, 'city':city, 'address':address})
+    return redirect('/')
 
 def generateMessage(AB0, Rh, city, address):
     if AB0:

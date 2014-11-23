@@ -58,7 +58,7 @@ class User:
         return
 
     def setRh(self, rh, save=False):
-        self.document['RH'] = rh
+        self.document['Rh'] = rh
         if(save): self.save()
         return
 
@@ -202,10 +202,10 @@ def get_eligible_donors_array(AB0, Rh, country, city):
     ret = []
     tmp = []
     if not AB0:
-        AB0 = ['A', 'B', 'AB', '0']
+        AB0 = ['A', 'B', 'AB', '0', 'None']
     if not Rh:
-        Rh = ['+', '-']
-    for donor in mongo.UserDocument.find({'type':'donor', 'country':country,'$in' : [{'AB0':AB0}, {'Rh': Rh}] }):
+        Rh = ['+', '-', 'None']
+    for donor in mongo.UserDocument.find({'type':'donor', 'country':country,'AB0' : { '$in':AB0 }, 'Rh': { '$in' : Rh } }):
         ret.append(User(donor))
     if country:
         for donor in ret:
@@ -220,7 +220,11 @@ def get_eligible_donors_array(AB0, Rh, country, city):
         ret = tmp
         tmp = []
     for donor in ret:
-        event = mongo.EventDocument.find({'username':donor['username']}).sort({'date':-1})[0]
+        event = mongo.EventDocument.find({'username':donor['username']}).sort('date',-1)
+        if event.count() > 0:
+            event = event[0]
+        else:
+            continue
         eventType = event['type']
         eventDate = event['date']
         sex = donor['sex']
