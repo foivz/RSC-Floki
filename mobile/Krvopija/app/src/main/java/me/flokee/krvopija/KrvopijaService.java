@@ -19,6 +19,8 @@ public interface KrvopijaService {
     void profile(@Query("token") String token,
                  Callback<ProfileResponseObject> cb);
 
+    @GET("/REST/subscribe")
+    void subscribe(@Query("token") String token, @Query("notificationToken") String notificationToken, Callback<Object> cb);
 }
 
 /*

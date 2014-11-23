@@ -28,6 +28,9 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import me.flokee.krvopija.fragment.InstitutionsFragment;
 import me.flokee.krvopija.fragment.ProfileFragment;
 import me.flokee.krvopija.fragment.SettingsFragment;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import java.io.IOException;
 
@@ -302,6 +305,18 @@ public class MainActivity extends ActionBarActivity {
      */
     private void sendRegistrationIdToBackend() {
         Log.i(TAG, "Registered GCM: " + regid);
+
+        Services.getKrvopijaService().subscribe(token, regid, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
     /**
