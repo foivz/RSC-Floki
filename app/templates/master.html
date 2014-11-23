@@ -75,11 +75,11 @@
                             <a href="#"><i class="fa fa-user fa-fw"></i> {{ user.get_id() }}</a>
                         </li>
                         <li>
-                            <a href="/super/admin/editWorkers/{{ user['username'] }}"><i class="fa fa-gear fa-fw"></i> Account Info</a>
+                            <a href="/super/admin/editWorkers/{{ user['username'] }}"><i class="fa fa-gear fa-fw"></i> Account</a>
                         </li>
                         {% if user.isAdmin() and not user.isSuperAdmin() %}
                         <li>
-                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-gear fa-fw"></i> Institution Info</a>
+                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-gear fa-fw"></i> Institution</a>
                         </li>
                         {% endif %}
                         <li class="divider"></li>

@@ -203,8 +203,10 @@ def get_eligible_donors_array(AB0, Rh, country, city):
     tmp = []
     if not AB0:
         AB0 = ['A', 'B', 'AB', '0', 'None']
-    if not Rh:
         Rh = ['+', '-', 'None']
+    else:
+        AB0 = [AB0]
+        Rh = [Rh]
     for donor in mongo.UserDocument.find({'type':'donor', 'country':country,'AB0' : { '$in':AB0 }, 'Rh': { '$in' : Rh } }):
         ret.append(User(donor))
     if country:

@@ -4,3 +4,4 @@ pymongo
 simplejson
 mongokit
 python-gcm
+requests

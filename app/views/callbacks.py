@@ -3,6 +3,7 @@ from flask.ext.login import login_required, current_user
 from app import app
 from app.DAO import user as userClass, institution as institutionClass, mongo
 from app.core import Functions
+import requests
 from gcm import GCM
 
 __author__ = 'Luka Strizic'
@@ -108,9 +109,13 @@ def notify():
     donors = userClass.get_eligible_donors_array(AB0, Rh, country, city)
     if not message: message = generateMessage(AB0, Rh, city, address)
     gcm = GCM('AIzaSyBK9OhEEvws_AFT47BA5fqsiUBHX1Oi6XQ')
+    r = requests.get("http://maps.googleapis.com/maps/api/geocode/json?address=" + country + " " + city + " " + address)
+    r = r.json()['results'][0]['geometry']['location']
+    lat = r['lat']
+    lng = r['lng']
     for donor in donors:
         if donor['token']:
-            gcm.plaintext_request(donor['token'], {'message':message, 'country':country, 'city':city, 'address':address})
+            gcm.plaintext_request(donor['token'], {'message':message, 'lat':str(lat), 'lng':str(lng)})
     return redirect('/')
 
 def generateMessage(AB0, Rh, city, address):
