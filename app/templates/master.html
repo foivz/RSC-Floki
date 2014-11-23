@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+    {% set c =user["country"] %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,15 +75,19 @@
                             <a href="#"><i class="fa fa-user fa-fw"></i> {{ user.get_id() }}</a>
                         </li>
                         <li>
-                            <a href="/super/admin/editWorkers/{{ user['username'] }}"><i class="fa fa-gear fa-fw"></i> Account</a>
+                            <a href="/super/admin/editWorkers/{{ user['username'] }}"><i class="fa fa-gear fa-fw"></i> {{ l(c,"account") }}</a>
                         </li>
                         {% if user.isAdmin() and not user.isSuperAdmin() %}
                         <li>
+<<<<<<< HEAD
                             <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-building fa-fw"></i> Institution</a>
+=======
+                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-gear fa-fw"></i> {{ l(c,"institution") }}</a>
+>>>>>>> lokalizacija
                         </li>
                         {% endif %}
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> {{ l(c,"logout") }}</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -98,7 +102,7 @@
                         <li class="sidebar-search">
                             {% if user.isWorker() %}
                             <div class="input-group custom-search-form">
-                                <input class="control-form" type="text" id="mainSearch" placeholder="Search ..." autocomplete="off">
+                                <input class="control-form" type="text" id="mainSearch" placeholder="{{ l(c,'search') }} ..." autocomplete="off">
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" style="color:pink">
                                     <i class="fa fa-search"></i>
@@ -110,16 +114,15 @@
                         </li>
                         {% if user.isSuperAdmin() %}
                         <li>
-                            <a href="#"><i class="fa fa-cubes fa-fw"></i> Administration <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cubes fa-fw"></i> {{ l(c,"administration") }} <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/super/admin/registrationRequests">Registration requests
+                                    <a href="/super/admin/registrationRequests">{{ l(c,"registration_request") }}
                                         <span class="badge">{{ total_requests_num }}</span>
                                         <span class="fa fa-envelope pull-right"></span>
                                     </a>
-                                    <a href="/super/admin/editInstitutions">Edit institutions
-                                        <span class="fa fa-wrench pull-right"></span>
-                                    </a>
+                                    <a href="/super/admin/editInstitutions">{{ l(c,"edit_institutions") }}
+                                        <span class="fa fa-wrench pull-right"></span></a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -127,23 +130,22 @@
                         {% endif %}
                         {% if user.isWorker() or user.isAdmin() %}
                         <li>
-                            <a href="#"><i class="fa fa-book fa-fw"></i> User Registry <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-book fa-fw"></i> {{ l(c,"user_administration") }} <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 {% if user.isAdmin() %}
                                 <li>
-                                    <a href="/super/admin/editWorkers">Edit workers
+                                    <a href="/super/admin/editWorkers">{{ l(c,"edit_workers") }}
                                         <span class="fa fa-user-md pull-right"></span>
                                     </a>
                                 </li>
                                 {% endif %}
                                 <li>
-                                    <a href="/super/admin/editDonors">Edit donors
-                                        <span class="fa fa-user pull-right"></span>
-                                    </a>
+                                    <a href="/super/admin/editDonors">{{ l(c,"edit_donors") }}
+                                        <span class="fa fa-user pull-right"></span></a>
                                 </li>
                                 {% if user.isWorker() %}
                                 <li>
-                                    <a href="/super/admin/sendNotification">Send notification
+                                    <a href="/super/admin/sendNotification">{{ l(c,"send_notification") }}
                                         <span class="fa fa-comment pull-right"></span>
                                     </a>
                                 </li>
@@ -154,15 +156,14 @@
                         {% endif %}
                         {% if user.isWorker() %}
                         <li>
-                            <a href="/bloodSuply"><i class="fa fa-tint fa-fw"></i>Blood Suply
+                            <a href="/bloodSuply"><i class="fa fa-tint fa-fw"></i>{{ l(c,"blood_suply") }}
                             </a>
                         </li>
                         <li>
-                            <a href="/statistics"><i class="fa fa-signal fa-fw"></i> Statistics </a>
+                            <a href="/statistics"><i class="fa fa-signal fa-fw"></i> {{ l(c,"statistics") }} </a>
                         </li>
                         {% endif %}
                     </ul>
-                    <div style="background-image:url('static/bg.jpg')">asdf</div>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>

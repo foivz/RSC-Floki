@@ -15,111 +15,111 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="well">
-                <h4>Institution</h4>
-                <form role="form" method="post", action="/institution/{{ id }}/update">
+                <h4>{{ l(c,"institution") }}</h4>
+                <form role="form" method="post" action="/institution/{{ id }}/update">
                     <div class="row rowSpace">
-                        <label>Name</label>
+                        <label>{{ l(c,"name") }}</label>
                         <input class="form-control" name="name" value="{{ institution.name }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>Country</label>
+                        <label>{{ l(c,"country") }}</label>
                         <input class="form-control" name="country" value="{{ institution.country }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>City</label>
+                        <label>{{ l(c,"city") }}</label>
                         <input class="form-control" name="city" value="{{ institution.city }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>Address</label>
+                        <label>{{ l(c,"address") }}</label>
                         <input class="form-control" name="address" value="{{ institution.address }}">
                     </div>
                     <div class="row rowSpace">
                         <div class="col-lg-2 columnSpace">
                             <div class="row rowSpace">
-                                <label>A+ warning limit</label>
+                                <label>A+ {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="A+low" value="{{ institution['A+low'] }}">
                             </div>
                             <div class="row rowSpace">
-                                <label>B+ warning limit</label>
+                                <label>B+ {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="B+low" value="{{ institution['B+low'] }}">
                             </div>
                             <div class="row rowSpace">
-                                <label>AB+ warning limit</label>
+                                <label>AB+ {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="AB+low" value="{{ institution['AB+low'] }}">
                             </div>
                             <div class="row rowSpace">
-                                <label>0+ warning limit</label>
+                                <label>0+ {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="0+low" value="{{ institution['0+low'] }}">
                             </div>
                         </div>
                         <div class="col-lg-2 columnSpace">
                             <div class="row rowSpace">
-                                <label>A- warning limit</label>
+                                <label>A- {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="A-low" value="{{ institution['A-low'] }}">
                             </div>
                             <div class="row rowSpace">
-                                <label>B- warning limit</label>
+                                <label>B- {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="B-low" value="{{ institution['B-low'] }}">
                             </div>
                             <div class="row rowSpace">
-                                <label>AB- warning limit</label>
+                                <label>AB- {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="AB-low" value="{{ institution['AB-low'] }}">
                             </div>
                             <div class="row rowSpace">
-                                <label>0- warning limit</label>
+                                <label>0- {{ l(c,"warning_limit") }}</label>
                                 <input class="form-control" name="0-low" value="{{ institution['0-low'] }}">
                             </div>
                         </div>
                         <div class="col-lg-2 columnSpace">
                             <div class="row rowSpace">
-                                <label>A+ level</label>
-                                <p>{{ institution.getAplus() * 0.45 }} litres</p>
+                                <label>A+ {{ l(c,"level") }}</label>
+                                <p>{{ institution.getAplus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                             <div class="row rowSpace">
-                                <label>B+ level</label>
-                                <p>{{ institution.getBplus() * 0.45 }} litres</p>
+                                <label>B+ {{ l(c,"level") }}</label>
+                                <p>{{ institution.getBplus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                             <div class="row rowSpace">
-                                <label>AB+ level</label>
-                                <p>{{ institution.getABplus() * 0.45 }} litres</p>
+                                <label>AB+ {{ l(c,"level") }}</label>
+                                <p>{{ institution.getABplus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                             <div class="row rowSpace">
-                                <label>0+ level</label>
-                                <p>{{ institution.get0plus() * 0.45 }} litres</p>
+                                <label>0+ {{ l(c,"level") }}</label>
+                                <p>{{ institution.get0plus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                         </div>
                         <div class="col-lg-2 columnSpace">
                             <div class="row rowSpace">
-                                <label>A- level</label>
-                                <p>{{ institution.getAminus() * 0.45 }} litres</p>
+                                <label>A- {{ l(c,"level") }}</label>
+                                <p>{{ institution.getAminus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                             <div class="row rowSpace">
-                                <label>B- level</label>
-                                <p>{{ institution.getBminus() * 0.45 }} litres</p>
+                                <label>B- {{ l(c,"level") }}</label>
+                                <p>{{ institution.getBminus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                             <div class="row rowSpace">
-                                <label>AB- level</label>
-                                <p>{{ institution.getABminus() * 0.45 }} litres</p>
+                                <label>AB- {{ l(c,"level") }}</label>
+                                <p>{{ institution.getABminus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                             <div class="row rowSpace">
-                                <label>0- level</label>
-                                <p>{{ institution.get0minus() * 0.45 }} litres</p>
+                                <label>0- {{ l(c,"level") }}</label>
+                                <p>{{ institution.get0minus() * 0.45 }} {{ l(c,"litres") }}</p>
                             </div>
                         </div>
                     </div>
                 <div class="row rowSpace">
                     <div class="col-lg-2 columnSpace"></div>
                     <div class="col-lg-3 columnSpace">
-                        <button class="btn btn-default" type="submit" style="background-color:pink; color:white">Submit</button>
+                        <button class="btn btn-default" type="submit" style="background-color:pink; color:white">{{ l(c,"submit") }}</button>
                     </div>
                     {% if user.isSuperAdmin() %}
                     <div class="col-lg-3 columnSpace">
                     {% if institution.active %}
-                        <button class="btn btn-default hidden" id="activateButton" style="background-color:pink; color:white" onclick="activateInstitution('{{ id }}')">Activate</button>
-                        <button class="btn btn-default" id="deactivateButton" style="background-color:pink; color:white" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                        <button class="btn btn-default hidden" id="activateButton" style="background-color:pink; color:white" onclick="activateInstitution('{{ id }}')">{{ l(c,"activate") }}</button>
+                        <button class="btn btn-default" id="deactivateButton" style="background-color:pink; color:white" onclick="deactivateInstitution('{{ id }}')">{{ l(c,"deactivate") }}</button>
                     {% else %}
-                        <button class="btn btn-default" id="activateButton" style="background-color:pink; color:white" onclick="activateInstitution('{{ id }}')">Activate</button>
-                        <button class="btn btn-default hidden" id="deactivateButton" style="background-color:pink; color:white" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                        <button class="btn btn-default" id="activateButton" style="background-color:pink; color:white" onclick="activateInstitution('{{ id }}')"{{ l(c,"activate") }}></button>
+                        <button class="btn btn-default hidden" id="deactivateButton" style="background-color:pink; color:white" onclick="deactivateInstitution('{{ id }}')">{{ l(c,"deactivate") }}</button>
                     {% endif %}
                     </div>
                     {% endif %}

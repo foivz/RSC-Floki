@@ -19,30 +19,30 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="well">
-                <h4>Donor</h4>
-                <form role="form" method="post", action="/donor/{{ donor['username'] }}/update">
+                <h4>{{ l(c,"donor") }}</h4>
+                <form role="form" method="post" action="/donor/{{ donor['username'] }}/update">
                     <div class="row rowSpace">
-                        <label>Userame</label>
+                        <label>{{ l(c,"username") }}</label>
                         <input class="form-control" name="username" value="{{ donor['username'] }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>Name</label>
+                        <label>{{ l(c,"name") }}</label>
                         <input class="form-control" name="name" value="{{ donor['name'] }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>Surname</label>
+                        <label>{{ l(c,"surname") }}</label>
                         <input class="form-control" name="surname" value="{{ donor['surname'] }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>Country</label>
+                        <label>{{ l(c,"country") }}</label>
                         <input class="form-control" name="country" value="{{ donor['country'] }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>City</label>
+                        <label>{{ l(c,"city") }}</label>
                         <input class="form-control" name="city" value="{{ donor['city'] }}">
                     </div>
                     <div class="row rowSpace">
-                        <label>Address</label>
+                        <label>{{ l(c,"address") }}</label>
                         <input class="form-control" name="address" value="{{ donor['address'] }}">
                     </div>
                     <div class="row rowSpace">
@@ -58,7 +58,7 @@
                             <div class="row rowSpace"></div>
                             <div class="row rowSpace"></div>
                             <div class="row rowSpace"></div>
-                            <button class="btn btn-default" type="submit" style="background-color:pink; color:white">Submit</button>
+                            <button class="btn btn-default" type="submit" style="background-color:pink; color:white">{{ l(c,"submit") }}</button>
                         </div>
                     </div>
                 </form>
