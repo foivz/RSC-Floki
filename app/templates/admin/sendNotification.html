@@ -3,11 +3,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            {% if user.isAdmin() %}
-            <h1 class="page-header">Admin</h1>
-            {% else %}
-            <h1 class="page-header">Worker</h1>
-            {% endif %}
+                <h1>Notification</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -15,8 +11,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="well">
-                <h4>Notification</h4>
-                <form role="form" method="post", action="/sendNotification">
+                <form role="form" method="post" action="/sendNotification">
                     <div class="row rowSpace">
                         <label>Country</label>
                         <input class="form-control" name="country" required>

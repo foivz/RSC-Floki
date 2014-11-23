@@ -38,7 +38,7 @@
                         {% for worker in workers %}
                         <tr>
                                 <td>{{ loop.index }}</td>
-                                <td><a href="editWorkers/{{ worker['username'] }}"><i class="fa fa-cog" style="color: grey"></i></td>
+                                <td><a href="editWorkers/{{ worker['username'] }}"><i class="fa fa-cog" style="color: grey"></i></a></td>
                                 <td>{{ worker["username"] }}</td>
                                 <td>{{ worker["type"] }}</td>
                                 <td>{{ worker["name"] }}</td>
