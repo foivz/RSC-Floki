@@ -55,14 +55,13 @@ class EventDocument(Document):
     structure = {
         'id' : basestring,
         'username' : basestring,
-        'institutionID' : basestring,
+        'institutionID' : None,
         'type' : bool,
-        'status' : basestring,
+        'info' : {},
         'date' : datetime,
     }
 
     default_values = {
-        'status' : ' ',
         'date' : datetime.utcnow,
         'id' : uuidStr
     }

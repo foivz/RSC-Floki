@@ -15,6 +15,10 @@ public interface KrvopijaService {
             @Query("password") String password,
             Callback<LoginResponseObject> cb);
 
+    @GET("/REST/profile")
+    void profile(@Query("token") String token,
+                 Callback<ProfileResponseObject> cb);
+
 }
 
 /*

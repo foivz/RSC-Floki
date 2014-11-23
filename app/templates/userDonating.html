@@ -1,32 +1,117 @@
 {% extends "master.html" %}
 {% block content %}
     <div class="row ">
-        <div class="col-lg-6 well">
-            <div class="row">
-                <div class="col-lg-3">
-                    <h4>Name:</h4>
-                </div>
-                <div class="col-lg-3">
-                    <h3>{{ donator["name"] }}</h3>
+        <div class="col-lg-5">
+            <div style="padding:5px">
+            <div class="row well">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4>Name:</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>{{ donator["name"] }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4>Surname:</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>{{ donator["surname"] }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4>Address:</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>{{ donator["address"] }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4>City:</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>{{ donator["city"] }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4>Country:</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>{{ donator["country"] }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4>Blood type:</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>{% if not donator["AB0"] %}unknown{% else %}{{ donator["AB0"] }}{{ donator["RH"] }}{% endif %}</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3">
-                    <h4>Name:</h4>
-                </div>
-                <div class="col-lg-3">
-                    <h3>{{ donator["name"] }}</h3>
+            {% if not donator["AB0"] %}
+            <div class="row well">
+                <div class="col-lg-12">
+                    <form action="/setBloodType/{{ donator.get_id() }}" method="post">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input name="bloodType" value="" class="form-control">
+                            </div>
+                            <div class="col-lg-3">
+                                <button type="submit" class="btn btn-default btn-success">Set blood type</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3">
-                    <h4>Name:</h4>
-                </div>
-                <div class="col-lg-3">
-                    <h3>{{ donator["name"] }}</h3>
-                </div>
+            {% endif %}
             </div>
         </div>
 
+        <div class="col-lg-6">
+            <div style="padding:5px">
+                <form action="/event/donation/{{ donator.get_username() }}" method="post">
+                <div class="row well" >
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Blood pressure: (mmHg)</label>
+                            <input class="form-control" name="bloodPressure">
+                        </div>
+                        <div class="form-group">
+                            <label>Weight: (kg)</label>
+                            <input class="form-control" name="weight">
+                        </div>
+                        <div class="form-group">
+                            <label>Hemoglobine: (mg/L)</label>
+                            <input class="form-control" name="Hmg">
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" name="tatoo">Tatoo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" name="pierce">Piercing
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-default btn-success" type="submit" >proceed</button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}

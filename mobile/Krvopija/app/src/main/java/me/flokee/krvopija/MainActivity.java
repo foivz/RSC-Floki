@@ -38,6 +38,8 @@ public class MainActivity extends ActionBarActivity {
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private String token;
+
     private DrawerLayout drawerLayoutt;
     private ListView listView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -57,6 +59,10 @@ public class MainActivity extends ActionBarActivity {
 
     String regid;
 
+    public String getToken() {
+        return token;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +71,9 @@ public class MainActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         context = getApplicationContext();
+
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        token = prefs.getString("token", null);
 
         // Check device for Play Services APK.
         if (checkPlayServices()) {
@@ -77,8 +86,6 @@ public class MainActivity extends ActionBarActivity {
         } else {
             Log.i(TAG, "No valid Google Play Services APK found.");
         }
-
-
 
         navigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
         drawerLayoutt = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,7 +1,7 @@
 from flask import render_template
 from flask.ext.login import login_required, current_user
 from app import app
-from  app.DAO import user as userClass
+from  app.DAO import user as userClass, institution as institutionClass
 
 __author__ = 'Davor Obilinovic'
 
@@ -26,3 +26,11 @@ def do_donatinon(username):
     return render_template("userDonating.html",
                            donator = donator,
                            user = current_user)
+
+@login_required
+@app.route("/bloodSuply", methods=["GET"])
+def blood_suply():
+    return render_template("bloodSuply.html",
+                           institutions = institutionClass.get_all_institutions_array(),
+                           user = current_user)
+

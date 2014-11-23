@@ -29,4 +29,4 @@ def create_session(user):
 
 
 def get_username_from_token(token):
-    return mongo[configParser.get("Mongo","DBname")].tokens.findOne({"token":token})
+    return mongo[configParser.get("Mongo","DBname")].tokens.find_one({"token":token})["username"]

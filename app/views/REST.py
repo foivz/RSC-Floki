@@ -1,10 +1,9 @@
 import hashlib
-from os import abort
 from flask import jsonify, request
 from app import app
 from app.DAO import user as userClass, mongo
-from app.DAO.user import User
 from app.core import Functions
+import simplejson as json
 
 __author__ = 'Davor Obilinovic'
 
@@ -19,7 +18,7 @@ def register_donor():
         data = request.args
         doc = mongo.UserDocumen()
         doc["username"] = data["username"]
-        doc["password"] = hashlib.sha1(data["username"]).hexDigest()
+        doc["password"] = hashlib.sha1(data["password"]).hexDigest()
         doc["AB0"] = data["AB0"] if "AB0" in data.keys() else None
         doc["RH"] = data["RH"] if "RH" in data.keys() else None
         doc["name"] = data["name"]
@@ -32,12 +31,22 @@ def register_donor():
     except Exception as e:
         return jsonify(status=e.message)
 
-@app.route("/REST/profile")
+@app.route("/REST/profile", methods=["GET","POST"])
 def rest_profile():
-    token = request.args["token"]
-    username = Functions.get_username_from_token(token)
-    user = userClass.get_by_username(username)
-    return jsonify(status="OK",profile=user.getProfileJson())
+    try:
+        token = request.args["token"]
+        username = Functions.get_username_from_token(token)
+        user = userClass.get_by_username(username)
+        if request.method == "POST":
+            data = json.loads(request.args["data"])
+            for key in data.keys():
+                if not "token" in key:
+                    user.document[key] = data[key]
+            user.save()
+            return jsonify(status="OK")
+        return jsonify(status="OK",profile=user.getProfileJson())
+    except Exception as e:
+        return jsonify(status=e.message)
 
 @app.route("/REST/login", methods=["POST"])
 def login_donor():
@@ -52,8 +61,8 @@ def login_donor():
 @app.route("/REST/test/")
 def rest_test():
     return jsonify(status="OK",info={"disi":"frane"})
-
 @app.route("/REST/subscribe")
+
 def rest_subscribe():
     token = request.args["token"]
     username = Functions.get_username_from_token(token)
@@ -68,3 +77,15 @@ def rest_unsubscribe():
     user = userClass.get_by_username(username)
     user.clearNotificationToken(True)
     return
+
+@app.route("/REST/events")
+def rest_push_event():
+    token = request.args["token"]
+    username = Functions.get_username_from_token(token)
+    user = userClass.get_by_username(username)
+    doc = mongo.EventDocument()
+    doc["username"] = user.get_username()
+    doc["institutionID"] = None
+    doc["type"] = request.args["type"]
+    doc["info"] = {}
+    return jsonify(status="OK")
