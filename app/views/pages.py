@@ -34,3 +34,7 @@ def blood_suply():
                            institutions = institutionClass.get_all_institutions_array(),
                            user = current_user)
 
+@login_required
+@app.route("/statistics")
+def stats():
+    render_template("statistics.html",user = current_user, barData = Stati)

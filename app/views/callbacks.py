@@ -139,6 +139,7 @@ def do_donation(username):
     doc = mongo.EventDocument()
     doc['institutionID'] = institutionId
     doc['username'] = username
+    doc["type"] = "donation"
     info = {}
     for key in data.keys():
         if key in ["tatoo","pierce"] :
