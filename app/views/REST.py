@@ -34,16 +34,19 @@ def register_donor():
 
 @app.route("/REST/profile", methods=["GET","POST"])
 def rest_profile():
-    token = request.args["token"]
-    username = Functions.get_username_from_token(token)
-    user = userClass.get_by_username(username)
-    if request.method == "POST":
-        for key in request.args["data"]:
-            if key=="token": continue
-            user.document[key] = request.args["data"][key]
-        user.save()
-        return jsonify(status="OK")
-    return jsonify(status="OK",profile=user.getProfileJson())
+    try:
+        token = request.args["token"]
+        username = Functions.get_username_from_token(token)
+        user = userClass.get_by_username(username)
+        if request.method == "POST":
+            for key in request.args["data"]:
+                if key=="token": continue
+                user.document[key] = request.args["data"][key]
+            user.save()
+            return jsonify(status="OK")
+        return jsonify(status="OK",profile=user.getProfileJson())
+    except Exception as e:
+        return jsonify(status=e.message)
 
 @app.route("/REST/login", methods=["POST"])
 def login_donor():
