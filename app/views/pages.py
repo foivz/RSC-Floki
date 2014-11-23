@@ -2,6 +2,7 @@ from flask import render_template
 from flask.ext.login import login_required, current_user
 from app import app
 from  app.DAO import user as userClass, institution as institutionClass
+from app.core import Stats
 
 __author__ = 'Davor Obilinovic'
 
@@ -37,4 +38,4 @@ def blood_suply():
 @login_required
 @app.route("/statistics")
 def stats():
-    render_template("statistics.html",user = current_user, barData = Stati)
+    return render_template("statistics.html",user = current_user, barData = Stats.bar_chart(institutionClass.get_all_institutions_array()))

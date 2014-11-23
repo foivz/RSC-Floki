@@ -150,6 +150,9 @@ class Institution:
                 self.get0minus() <= self.document['0-low']
         return ret
 
+    def get_string_presentation(self):
+        return self["name"]+(", "+self["city"]) if self["city"] else""
+
 def create_institution_from_request(req):
     doc = mongo.InstitutionDocument()
     doc['name'] = req['name']
