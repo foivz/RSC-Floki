@@ -27,6 +27,5 @@ def create_session(user):
     mongo[configParser.get("Mongo","DBname")].tokens.insert({"username":user.get_username(),"token":token})
     return token
 
-
 def get_username_from_token(token):
     return mongo[configParser.get("Mongo","DBname")].tokens.find_one({"token":token})["username"]

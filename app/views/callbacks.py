@@ -2,7 +2,6 @@ from flask import request, redirect, jsonify
 from flask.ext.login import login_required, current_user
 from app import app
 from app.DAO import user as userClass, institution as institutionClass, mongo
-from app.DAO.event import EventDocument
 from app.core import Functions
 from gcm import GCM
 
