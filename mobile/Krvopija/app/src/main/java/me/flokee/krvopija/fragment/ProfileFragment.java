@@ -1,24 +1,25 @@
 package me.flokee.krvopija.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import me.flokee.krvopija.*;
+import me.flokee.krvopija.ProfileUpdateResponseObject;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProfileFragment extends Fragment {
 
@@ -30,7 +31,7 @@ public class ProfileFragment extends Fragment {
         final String text = String.format("Profile Overview");
         getActivity().setTitle(text);
 
-        String token = ((MainActivity) getActivity()).getToken();
+        final String token = ((MainActivity) getActivity()).getToken();
 
         final ListView mListView = (ListView) rootView.findViewById(R.id.my_list_view);
         mListView.setItemsCanFocus(false);
@@ -74,6 +75,25 @@ public class ProfileFragment extends Fragment {
                         .customView(view)
                         .positiveText("Add")
                         .positiveColor(Color.parseColor("#03a9f4"))
+                        .callback(new MaterialDialog.SimpleCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog materialDialog) {
+                                String type = ((Spinner)materialDialog.getCustomView().findViewById(R.id.sick_spinner)).getSelectedItem().toString();
+
+                                Services.getKrvopijaService().addEvent(token, type, new Callback<EventResponseObject>() {
+                                    @Override
+                                    public void success(EventResponseObject profileResponseObject, Response response) {
+                                        Log.i("rest", "add issue with status " + profileResponseObject.getStatus());
+                                        Toast.makeText(inflater.getContext(), "Update " + profileResponseObject.getStatus(), Toast.LENGTH_LONG);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+                                        Log.e("rest", "failed to add issue " + error.getMessage());
+                                    }
+                                });
+                            }
+                        })
                         .build()
                         .show();
             }
@@ -89,6 +109,28 @@ public class ProfileFragment extends Fragment {
                         .customView(view)
                         .positiveText("Update")
                         .positiveColor(Color.parseColor("#03a9f4"))
+                        .callback(new MaterialDialog.SimpleCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog materialDialog) {
+                                final String N = "\"";
+                                String data = "{\"name\":"+N+((TextView)materialDialog.getCustomView().findViewById(R.id.editText)).getText().toString()+N+",";
+                                data = data + "\"surname\":"+N+((TextView)materialDialog.getCustomView().findViewById(R.id.editText2)).getText().toString()+N+",";
+                                data = data + "\"country\":"+N+((TextView)materialDialog.getCustomView().findViewById(R.id.editText3)).getText().toString()+N+"}";
+
+                                Services.getKrvopijaService().updateProfile(token, data, new Callback<ProfileUpdateResponseObject>() {
+                                    @Override
+                                    public void success(ProfileUpdateResponseObject profileResponseObject, Response response) {
+                                        Log.i("rest", "update profile with status " + profileResponseObject.getStatus());
+                                        Toast.makeText(inflater.getContext(), "Update " + profileResponseObject.getStatus(), Toast.LENGTH_LONG);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+                                        Log.e("rest", "failed to update profile " + error.getMessage());
+                                    }
+                                });
+                            }
+                        })
                         .build()
                         .show();
             }
