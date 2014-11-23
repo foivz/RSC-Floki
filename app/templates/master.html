@@ -68,7 +68,7 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-cogs fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
@@ -79,7 +79,7 @@
                         </li>
                         {% if user.isAdmin() and not user.isSuperAdmin() %}
                         <li>
-                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-gear fa-fw"></i> Institution</a>
+                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-building fa-fw"></i> Institution</a>
                         </li>
                         {% endif %}
                         <li class="divider"></li>
@@ -108,13 +108,15 @@
                         </li>
                         {% if user.isSuperAdmin() %}
                         <li>
-                            <a href="#"><i class="fa fa-book fa-fw"></i> Administration <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cubes fa-fw"></i> Administration <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/super/admin/registrationRequests">Registration requests
                                         <span class="badge">{{ total_requests_num }}</span>
+                                        <span class="fa fa-envelope pull-right"></span>
                                     </a>
                                     <a href="/super/admin/editInstitutions">Edit institutions
+                                        <span class="fa fa-wrench pull-right"></span>
                                     </a>
                                 </li>
                             </ul>
@@ -123,21 +125,24 @@
                         {% endif %}
                         {% if user.isWorker() or user.isAdmin() %}
                         <li>
-                            <a href="#"><i class="fa fa-book fa-fw"></i> User Administration <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-book fa-fw"></i> User Registry <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 {% if user.isAdmin() %}
                                 <li>
                                     <a href="/super/admin/editWorkers">Edit workers
+                                        <span class="fa fa-user-md pull-right"></span>
                                     </a>
                                 </li>
                                 {% endif %}
                                 <li>
                                     <a href="/super/admin/editDonors">Edit donors
+                                        <span class="fa fa-user pull-right"></span>
                                     </a>
                                 </li>
                                 {% if user.isWorker() %}
                                 <li>
                                     <a href="/super/admin/sendNotification">Send notification
+                                        <span class="fa fa-comment pull-right"></span>
                                     </a>
                                 </li>
                                 {% endif %}
@@ -145,13 +150,13 @@
                             <!-- /.nav-second-level -->
                         </li>
                         {% endif %}
-                        <li>
-                            <a href="/bloodSuply">Blood Suply
-                            </a>
-                        </li>
                         {% if user.isWorker() %}
                         <li>
-                            <a href="/statistics"><i class="fa fa-book fa-fw"></i> Statistics </a>
+                            <a href="/bloodSuply"><i class="fa fa-tint fa-fw"></i>Blood Suply
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/statistics"><i class="fa fa-signal fa-fw"></i> Statistics </a>
                         </li>
                         {% endif %}
                     </ul>
