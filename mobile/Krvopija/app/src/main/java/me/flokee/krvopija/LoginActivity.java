@@ -51,6 +51,13 @@ public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private boolean isLoggedIn() {
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        String token = prefs.getString("token", null);
+        if (token == null) return false;
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +65,12 @@ public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+        }
+
+        if (isLoggedIn()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            finish();
+            startActivity(intent);
         }
 
         // Set up the login form.
