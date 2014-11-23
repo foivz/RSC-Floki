@@ -110,16 +110,16 @@
                 <div class="row rowSpace">
                     <div class="col-lg-2 columnSpace"></div>
                     <div class="col-lg-3 columnSpace">
-                        <button class="btn btn-default" type="submit">Submit</button>
+                        <button class="btn btn-default" type="submit" style="background-color:pink; color:white">Submit</button>
                     </div>
                     {% if user.isSuperAdmin() %}
                     <div class="col-lg-3 columnSpace">
                     {% if institution.active %}
-                        <button class="btn btn-default hidden" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
-                        <button class="btn btn-default" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                        <button class="btn btn-default hidden" id="activateButton" style="background-color:pink; color:white" onclick="activateInstitution('{{ id }}')">Activate</button>
+                        <button class="btn btn-default" id="deactivateButton" style="background-color:pink; color:white" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
                     {% else %}
-                        <button class="btn btn-default" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
-                        <button class="btn btn-default hidden" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
+                        <button class="btn btn-default" id="activateButton" style="background-color:pink; color:white" onclick="activateInstitution('{{ id }}')">Activate</button>
+                        <button class="btn btn-default hidden" id="deactivateButton" style="background-color:pink; color:white" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
                     {% endif %}
                     </div>
                     {% endif %}

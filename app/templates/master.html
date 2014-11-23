@@ -62,7 +62,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Floki app</a>
+                <a class="navbar-brand" href="index.html">Floki App</a>
             </div>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
@@ -96,14 +96,16 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
+                            {% if user.isWorker() %}
                             <div class="input-group custom-search-form">
                                 <input class="control-form" type="text" id="mainSearch" placeholder="Search ..." autocomplete="off">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="button" style="color:pink">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
                             </div>
+                            {% endif %}
                             <!-- /input-group -->
                         </li>
                         {% if user.isSuperAdmin() %}
@@ -160,6 +162,7 @@
                         </li>
                         {% endif %}
                     </ul>
+                    <div style="background-image:url('static/bg.jpg')">asdf</div>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
