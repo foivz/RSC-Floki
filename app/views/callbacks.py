@@ -77,3 +77,19 @@ def update_worker(username):
     worker.setAccountType(data["type"])
     worker.save()
     return redirect('/super/admin/editWorkers/%s' % data["username"])
+
+@login_required
+@app.route("/donor/<username>/update", methods=["POST"])
+def update_donor(username):
+    data = request.form
+    worker = userClass.get_by_username(username)
+    worker.setUsername(data["username"])
+    worker.setName(data["name"])
+    worker.setSurname(data["surname"])
+    worker.setCountry(data["country"])
+    worker.setCity(data["city"])
+    worker.setAddress(data["address"])
+    worker.setAB0(data["AB0"])
+    worker.setRh(data["Rh"])
+    worker.save()
+    return redirect('/super/admin/editDonors/%s' % data["username"])

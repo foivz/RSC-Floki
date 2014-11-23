@@ -48,3 +48,17 @@ def edit_worker(username):
                            worker=user.get_by_username(username),
                            institutions=institution.get_all_institutions_array(),
                            user=current_user)
+
+@login_required
+@app.route("/super/admin/editDonors", methods=["GET"])
+def edit_donors():
+    return render_template("admin/editDonors.html",
+                           donors=user.get_all_donors_array(),
+                           user=current_user)
+
+@login_required
+@app.route("/super/admin/editDonors/<username>", methods=["GET"])
+def edit_donor(username):
+    return render_template("admin/editDonor.html",
+                           donor=user.get_by_username(username),
+                           user=current_user)

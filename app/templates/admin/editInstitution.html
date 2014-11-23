@@ -112,6 +112,7 @@
                     <div class="col-lg-3 columnSpace">
                         <button class="btn btn-default" type="submit">Submit</button>
                     </div>
+                    {% if user.isSuperAdmin() %}
                     <div class="col-lg-3 columnSpace">
                     {% if institution.active %}
                         <button class="btn btn-default hidden" id="activateButton" onclick="activateInstitution('{{ id }}')">Activate</button>
@@ -121,6 +122,7 @@
                         <button class="btn btn-default hidden" id="deactivateButton" onclick="deactivateInstitution('{{ id }}')">Deactivate</button>
                     {% endif %}
                     </div>
+                    {% endif %}
                 </div>
                 </form>
             </div>

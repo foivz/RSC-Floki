@@ -71,10 +71,17 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> {{ user.get_id() }}</a>
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> {{ user.get_id() }}</a>
                         </li>
-                        <li><a href="/super/admin/editWorkers/{{ user['username'] }}"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li>
+                            <a href="/super/admin/editWorkers/{{ user['username'] }}"><i class="fa fa-gear fa-fw"></i> Account Info</a>
                         </li>
+                        {% if user.isAdmin() and not user.isSuperAdmin() %}
+                        <li>
+                            <a href="/super/admin/editInstitutions/{{ user['institutionID'] }}"><i class="fa fa-gear fa-fw"></i> Institution Info</a>
+                        </li>
+                        {% endif %}
                         <li class="divider"></li>
                         <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
@@ -114,12 +121,18 @@
                             <!-- /.nav-second-level -->
                         </li>
                         {% endif %}
-                        {% if user.isAdmin() %}
+                        {% if user.isWorker() %}
                         <li>
                             <a href="#"><i class="fa fa-book fa-fw"></i> User Administration <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                {% if user.isAdmin() %}
                                 <li>
                                     <a href="/super/admin/editWorkers">Edit workers
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a href="/super/admin/editDonors">Edit donors
                                     </a>
                                 </li>
                             </ul>

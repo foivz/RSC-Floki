@@ -149,6 +149,9 @@ def get_all_users_cursor():
 def get_all_workers_cursor():
     return mongo.UserDocument.find({'$or' : [{'type': 'worker'},{'type': 'admin'},{'type': 'superadmin'}]})
 
+def get_all_donors_cursor():
+    return mongo.UserDocument.find({'type': 'donor'})
+
 def get_all_users_array():
     ret =[]
     for usr in get_all_users_cursor():
@@ -158,6 +161,12 @@ def get_all_users_array():
 def get_all_workers_array():
     ret =[]
     for usr in get_all_workers_cursor():
+        ret.append(User(usr))
+    return ret
+
+def get_all_donors_array():
+    ret =[]
+    for usr in get_all_donors_cursor():
         ret.append(User(usr))
     return ret
 
