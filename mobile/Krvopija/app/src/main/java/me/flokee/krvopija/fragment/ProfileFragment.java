@@ -6,33 +6,55 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.afollestad.materialdialogs.MaterialDialog;
 import me.flokee.krvopija.*;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
+    private static final String TAG =  ProfileFragment.class.getSimpleName();
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-        String text = String.format("Profile Overview");
+        final String text = String.format("Profile Overview");
         getActivity().setTitle(text);
 
-        ListView mListView = (ListView) rootView.findViewById(R.id.my_list_view);
+        String token = ((MainActivity) getActivity()).getToken();
+
+        final ListView mListView = (ListView) rootView.findViewById(R.id.my_list_view);
         mListView.setItemsCanFocus(false);
 
-        List<ProfileItem> profileItemList = new ArrayList<ProfileItem>();
-        profileItemList.add(new ProfileItem(R.drawable.ic_attach_file_black_48dp, "test 1"));
-        profileItemList.add(new ProfileItem(R.drawable.ic_attach_file_black_48dp, "test 2"));
+        Services.getKrvopijaService().profile(token, new Callback<ProfileResponseObject>() {
+            @Override
+            public void success(ProfileResponseObject profileResponseObject, Response response) {
+                Log.i(TAG, "done");
+                List<ProfileItem> profileItemList = new ArrayList<ProfileItem>();
+                profileItemList.add(new ProfileItem(R.drawable.ic_attach_file_black_48dp, "" + profileResponseObject.getProfile().getNumDonations() + " donations"));
+                profileItemList.add(new ProfileItem(R.drawable.ic_attach_file_black_48dp, "Blood type: " + profileResponseObject.getProfile().getBloodType().getAB0() + profileResponseObject.getProfile().getBloodType().getRH()));
+                for(String achievement : profileResponseObject.getProfile().getAchivements()) {
+                    profileItemList.add(new ProfileItem(R.drawable.ic_star_grey600_48dp, achievement));
+                }
 
-        ProfileAdapter mAdapter = new ProfileAdapter(inflater.getContext(), profileItemList);
-        mListView.setAdapter(mAdapter);
+                ProfileAdapter mAdapter = new ProfileAdapter(inflater.getContext(), profileItemList);
+                mListView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
 
         rootView.findViewById(R.id.add_icon).setOnClickListener(new View.OnClickListener() {
             @Override
