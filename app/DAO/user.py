@@ -132,6 +132,8 @@ class User:
         json["achivements"] = self.getAchivements()
         json["bloodType"] = {"AB0":self["AB0"],"RH":self["RH"]}
         json["country"] = self["country"]
+        json["name"] = self["name"]
+        json["surname"] = self["surname"]
         return json
 
     def getAchivements(self):
