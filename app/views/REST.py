@@ -40,8 +40,8 @@ def rest_profile():
         if request.method == "POST":
             data = json.loads(request.args["data"])
             for key in data.keys():
-                if key=="token": continue
-                user.document[key] = data[key]
+                if not "token" in key:
+                    user.document[key] = data[key]
             user.save()
             return jsonify(status="OK")
         return jsonify(status="OK",profile=user.getProfileJson())
