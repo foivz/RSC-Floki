@@ -61,8 +61,8 @@ def login_donor():
 @app.route("/REST/test/")
 def rest_test():
     return jsonify(status="OK",info={"disi":"frane"})
-@app.route("/REST/subscribe")
 
+@app.route("/REST/subscribe")
 def rest_subscribe():
     token = request.args["token"]
     username = Functions.get_username_from_token(token)

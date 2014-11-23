@@ -147,6 +147,21 @@ class User:
         if save: self.save()
         return
 
+    def nextDate(self):
+        event = mongo.EventDocument.find({'username':donor['username']}).sort({'date':-1})[0]
+        eventType = event['type']
+        eventDate = event['date']
+        sex = self.document['sex']
+        if eventType == 'donation' and sex == 'M' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days=90):
+            return eventDate + datetime.timedelta(days=90)
+        if eventType == 'donation' and sex == 'F' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days=120):
+            return eventDate + datetime.timedelta(days=120)
+        if eventType == 'sickness' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days = '14') :
+            return eventDate + datetime.timedelta(days = '14')
+        if eventType == 'tatooOrPiercing' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days = '180'):
+            return eventDate + datetime.timedelta(days = '180')
+        return datetime.datetime.utcnow()
+
 def get_by_username(username):
     doc = mongo.UserDocument.find_one({'username':username})
     if (doc):
@@ -206,12 +221,12 @@ def get_eligible_donors_array(AB0, Rh, country, city):
         eventType = event['type']
         eventDate = event['date']
         sex = donor['sex']
-        if eventType == 'donation' and sex == 'M' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days=90) or \
-           eventType == 'donation' and sex == 'F' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days=120):
+        if eventType == 'donation' and sex == 'M' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days=90) or \
+           eventType == 'donation' and sex == 'F' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days=120):
             pass
-        elif eventType == 'sickness' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days = '14') :
+        elif eventType == 'sickness' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days = '14') :
             pass
-        elif eventType == 'tatooOrPiercing' and datetime.datetime.utcnow() > eventDate + datetime.timedelta(days = '180'):
+        elif eventType == 'tatooOrPiercing' and datetime.datetime.utcnow() < eventDate + datetime.timedelta(days = '180'):
             pass
         else:
             tmp.append(donor)
