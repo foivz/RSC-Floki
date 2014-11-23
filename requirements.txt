@@ -1,4 +1,5 @@
 Flask==0.9
 flask-login
 pymongo
+simplejson
 mongokit
