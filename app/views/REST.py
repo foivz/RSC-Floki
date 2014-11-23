@@ -68,7 +68,7 @@ def rest_subscribe():
     username = Functions.get_username_from_token(token)
     user = userClass.get_by_username(username)
     user.setNotificationToken(request.args["notificationToken"], True)
-    return
+    return jsonify(status="OK")
 
 @app.route("/REST/unsubscribe")
 def rest_unsubscribe():
@@ -76,7 +76,7 @@ def rest_unsubscribe():
     username = Functions.get_username_from_token(token)
     user = userClass.get_by_username(username)
     user.clearNotificationToken(True)
-    return
+    return jsonify(status="OK")
 
 @app.route("/REST/events")
 def rest_push_event():

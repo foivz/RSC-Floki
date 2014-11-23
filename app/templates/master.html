@@ -145,6 +145,11 @@
                             <!-- /.nav-second-level -->
                         </li>
                         {% endif %}
+                        {% if user.isWorker() %}
+                        <li>
+                            <a href="/statistics"><i class="fa fa-book fa-fw"></i> Statistics </a>
+                        </li>
+                        {% endif %}
                         <li>
                             <a href="/bloodSuply">BloodSuply
                             </a>
