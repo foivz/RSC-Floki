@@ -1,10 +1,9 @@
 import hashlib
-from os import abort
 from flask import jsonify, request
 from app import app
 from app.DAO import user as userClass, mongo
-from app.DAO.user import User
 from app.core import Functions
+import simplejson as json
 
 __author__ = 'Davor Obilinovic'
 
@@ -39,9 +38,10 @@ def rest_profile():
         username = Functions.get_username_from_token(token)
         user = userClass.get_by_username(username)
         if request.method == "POST":
-            for key in request.args["data"].keys():
+            data = json.loads(request.args["data"])
+            for key in data.keys():
                 if key=="token": continue
-                user.document[key] = request.args["data"][key]
+                user.document[key] = data[key]
             user.save()
             return jsonify(status="OK")
         return jsonify(status="OK",profile=user.getProfileJson())
