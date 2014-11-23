@@ -136,7 +136,7 @@ def set_blood_type(username):
 def do_donation(username):
     user = userClass.get_by_username(username)
     data = request.form
-    institutionId = current_user['institutionID']
+    institutionId = current_user['institution']
     doc = mongo.EventDocument()
     doc['institutionID'] = institutionId
     doc['username'] = username

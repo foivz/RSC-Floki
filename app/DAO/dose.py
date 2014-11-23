@@ -35,7 +35,7 @@ class Dose:
         return
 
     def setRh(self, rh, save=False):
-        self.document['Rh'] = str(rh)
+        self.document['RH'] = str(rh)
         if(save): self.save()
         return
 
@@ -75,7 +75,7 @@ class DoseDocument(Document):
         'id' : basestring,
         'institutionID' : basestring,
         'AB0' : basestring,
-        'Rh' : basestring,
+        'RH' : basestring,
         'status' : basestring,
         'dateCreated' : datetime,
         'donationId' :basestring

@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="table-responsive">
                 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                    <div class="row">
+                    <div class="row hidden">
                         <div class="col-sm-6">
                             <div class="dataTables_length hidden" id="dataTables-example_length">
                                 <label>
@@ -29,19 +29,28 @@
                     <thead>
                         <tr role="row">
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 193px;" aria-sort="ascending">Rendering engine</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 261px;">Browser</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 244px;">Platform(s)</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 166px;">Engine version</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 127px;">CSS grade</th></tr>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 261px;">A+</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 244px;">A-</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 166px;">B+</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 127px;">B-</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 261px;">AB+</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 244px;">AB-</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 166px;">0+</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 127px;">0-</th></tr>
+                        </tr>
                     </thead>
                     <tbody>
                         {% for institution in institutions %}
                         <tr class="gradeA odd">
                             <td class="sorting_1">{{ institution["name"] }}</td>
-                            <td class="">{{ institution[""] }}</td>
-                            <td class=" ">OSX.2+</td>
-                            <td class="center ">1.8</td>
-                            <td class="center ">A</td>
+                            <td class="">{{ institution.getAplus() }}</td>
+                            <td class="">{{ institution.getAminus()}}</td>
+                            <td class="">{{ institution.getBplus() }}</td>
+                            <td class="">{{ institution.getBminus() }}</td>
+                            <td class="">{{ institution.getABplus() }}</td>
+                            <td class="">{{ institution.getABminus() }}</td>
+                            <td class="">{{ institution.get0plus() }}</td>
+                            <td class="">{{ institution.get0minus() }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

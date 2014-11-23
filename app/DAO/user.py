@@ -58,7 +58,7 @@ class User:
         return
 
     def setRh(self, rh, save=False):
-        self.document['Rh'] = rh
+        self.document['RH'] = rh
         if(save): self.save()
         return
 

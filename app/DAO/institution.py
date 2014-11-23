@@ -93,50 +93,50 @@ class Institution:
         return
 
     def getAplus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
-                                        'AB0' : 'A', 'Rh' : '+',
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
+                                        'AB0' : 'A', 'RH' : '+',
                                         'status' : 'available'}).count()
 
     def getAminus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
                                         'AB0' : 'A',
-                                        'Rh' : '-',
+                                        'RH' : '-',
                                         'status' : 'available'}).count()
 
     def getBplus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
                                         'AB0' : 'B',
-                                        'Rh' : '+',
+                                        'RH' : '+',
                                         'status' : 'available'}).count()
 
     def getBminus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
                                         'AB0' : 'B',
-                                        'Rh' : '-',
+                                        'RH' : '-',
                                         'status' : 'available'}).count()
 
     def getABplus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
                                         'AB0' : 'AB',
-                                        'Rh' : '+',
+                                        'RH' : '+',
                                         'status' : 'available'}).count()
 
     def getABminus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
                                         'AB0' : 'AB',
-                                        'Rh' : '-',
+                                        'RH' : '-',
                                         'status' : 'available'}).count()
 
     def get0plus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
                                         'AB0' : '0',
-                                        'Rh' : '+',
+                                        'RH' : '+',
                                         'status' : 'available'}).count()
 
     def get0minus(self):
-        return mongo.DoseDocument.find({'id' : self.document.id,
+        return mongo.DoseDocument.find({'institutionID' : self.document.id,
                                         'AB0' : '0',
-                                        'Rh' : '-',
+                                        'RH' : '-',
                                         'status' : 'available'}).count()
 
     def warning(self):
