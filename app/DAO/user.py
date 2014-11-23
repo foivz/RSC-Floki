@@ -162,6 +162,9 @@ class User:
             return eventDate + datetime.timedelta(days = '180')
         return datetime.datetime.utcnow()
 
+    def canDonate(self):
+        return self.nextDate() == datetime.datetime.utcnow()
+
 def get_by_username(username):
     doc = mongo.UserDocument.find_one({'username':username})
     if (doc):
