@@ -36,10 +36,15 @@ public class ProfileFragment extends Fragment {
         final ListView mListView = (ListView) rootView.findViewById(R.id.my_list_view);
         mListView.setItemsCanFocus(false);
 
+        final TextView user = (TextView) rootView.findViewById(R.id.textView2);
+
         Services.getKrvopijaService().profile(token, new Callback<ProfileResponseObject>() {
             @Override
             public void success(ProfileResponseObject profileResponseObject, Response response) {
                 Log.i(TAG, "done");
+
+                user.setText(profileResponseObject.getProfile().getName() + " " +profileResponseObject.getProfile().getSurname());
+
                 List<ProfileItem> profileItemList = new ArrayList<ProfileItem>();
                 profileItemList.add(new ProfileItem(R.drawable.ic_attach_file_black_48dp, "" + profileResponseObject.getProfile().getNumDonations() + " donations"));
                 profileItemList.add(new ProfileItem(R.drawable.ic_attach_file_black_48dp, "Blood type: " + profileResponseObject.getProfile().getBloodType().getAB0() + profileResponseObject.getProfile().getBloodType().getRH()));

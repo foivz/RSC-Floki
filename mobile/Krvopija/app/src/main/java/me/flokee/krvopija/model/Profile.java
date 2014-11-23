@@ -5,8 +5,27 @@ import java.util.List;
 public class Profile {
     private String country;
     private int numDonations;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     private List<String> achivements;
     private BloodType bloodType;
+    private String name;
+    private String surname;
 
     public BloodType getBloodType() {
         return bloodType;
