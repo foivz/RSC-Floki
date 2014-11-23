@@ -39,7 +39,7 @@ def rest_profile():
         username = Functions.get_username_from_token(token)
         user = userClass.get_by_username(username)
         if request.method == "POST":
-            for key in request.args["data"]:
+            for key in request.args["data"].keys():
                 if key=="token": continue
                 user.document[key] = request.args["data"][key]
             user.save()
