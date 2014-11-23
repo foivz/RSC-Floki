@@ -14,6 +14,7 @@ login_manager.session_protection = "strong"
 
 
 from views import login, pages, admin, callbacks, checks, autocomplete,REST
+# from scripts import populate_doses
 
 @login_manager.user_loader
 def load_user(userId):

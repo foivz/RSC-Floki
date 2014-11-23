@@ -42,7 +42,7 @@
                     <tbody>
                         {% for institution in institutions %}
                         <tr class="gradeA odd">
-                            <td class="sorting_1">{{ institution["name"] }}</td>
+                            <td class="sorting_1">{{ institution.get_string_presentation() }}</td>
                             <td class="">{{ institution.getAplus() }}</td>
                             <td class="">{{ institution.getAminus()}}</td>
                             <td class="">{{ institution.getBplus() }}</td>

@@ -3,21 +3,30 @@ import simplejson as json
 __author__ = 'Davor Obilinovic'
 
 def bar_chart(institutions):
-    bar = []
+    sstr = "["
+    _str = "["
+    ys = []
     for institution in institutions:
+        _y = "'"+institution.get_string_presentation()+"'"
+        _str = _str+_y+","
+        ys.append(_y)
         d = {
-            "y":institution["Name"],
-            "0-": institution.get0minus(),
-            "0+": institution.get0plus(),
-            "A-": institution.getAminus(),
-            "A+": institution.getBplus(),
-            "B-": institution.getBminus(),
-            "B+": institution.getBplus(),
-            "AB-": institution.getABminus(),
-            "AB+": institution.getABplus()
+            "a": institution.get0minus(),
+            "b": institution.get0plus(),
+            "c": institution.getAminus(),
+            "d": institution.getBplus(),
+            "e": institution.getBminus(),
+            "f": institution.getBplus(),
+            "g": institution.getABminus(),
+            "h": institution.getABplus()
         }
-        bar.append(d)
-    return json.dumps(bar)
+        sstr = sstr+"{y:"+_y+","
+        for key in d.keys():
+            sstr = sstr+key+":"+str(d[key])+","
+        sstr=sstr.rstrip(',')+"},"
+    _str = _str.rstrip(',')+"]"
+    sstr = sstr.rstrip(",")+"]"
+    return {"data":sstr,"y":[]}
 
 # [{
 #     y: '2006',
