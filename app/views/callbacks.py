@@ -1,7 +1,8 @@
 from flask import request, redirect, jsonify
-from flask.ext.login import login_required
+from flask.ext.login import login_required, current_user
 from app import app
-from app.DAO import user as userClass, institution as institutionClass
+from app.DAO import user as userClass, institution as institutionClass, mongo
+from app.DAO.event import EventDocument
 from app.core import Functions
 
 __author__ = 'Luka Strizic'
@@ -77,3 +78,40 @@ def update_worker(username):
     worker.setAccountType(data["type"])
     worker.save()
     return redirect('/super/admin/editWorkers/%s' % data["username"])
+
+@app.route("/setBloodType/<username>", methods=["POST"])
+def set_blood_type(username):
+    blod_type =request.form["bloodType"]
+    RH = "-" if "-" in blod_type else "+"
+    AB0 = blod_type.rstrip('-').rstrip('+')
+    user = userClass.get_by_username(username)
+    user.document["AB0"]= AB0
+    user.document["RH"] = RH
+    user.save()
+    return redirect("/events/donations/%s"%username)
+
+@login_required
+@app.route("/event/donation/<username>",methods=["POST"])
+def do_donation(username):
+    user = userClass.get_by_username(username)
+    data = request.form
+    institutionId = current_user['institutionID']
+    doc = mongo.EventDocument()
+    doc['institutionID'] = institutionId
+    doc['username'] = username
+    info = {}
+    for key in data.keys():
+        if key in ["tatoo","pierce"] :
+            info[key] = True
+        else:
+            info[key] = data[key]
+    doc["info"] = info
+    doc.save()
+    dose = mongo.DoseDocument()
+    dose["institutionID"] = institutionId
+    dose["AB0"] = user["AB0"]
+    dose["RH"] = user["RH"]
+    dose["donationId"] = doc["id"]
+    dose.save()
+    return redirect("/")
+

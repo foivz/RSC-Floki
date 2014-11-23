@@ -19,7 +19,7 @@ def register_donor():
         data = request.args
         doc = mongo.UserDocumen()
         doc["username"] = data["username"]
-        doc["password"] = hashlib.sha1(data["username"]).hexDigest()
+        doc["password"] = hashlib.sha1(data["password"]).hexDigest()
         doc["AB0"] = data["AB0"] if "AB0" in data.keys() else None
         doc["RH"] = data["RH"] if "RH" in data.keys() else None
         doc["name"] = data["name"]
@@ -32,11 +32,17 @@ def register_donor():
     except Exception as e:
         return jsonify(status=e.message)
 
-@app.route("/REST/profile")
+@app.route("/REST/profile", methods=["GET","POST"])
 def rest_profile():
     token = request.args["token"]
     username = Functions.get_username_from_token(token)
     user = userClass.get_by_username(username)
+    if request.method == "POST":
+        for key in request.args["data"]:
+            if key=="token": continue
+            user.document[key] = request.args["data"][key]
+        user.save()
+        return jsonify(status="OK")
     return jsonify(status="OK",profile=user.getProfileJson())
 
 @app.route("/REST/login", methods=["POST"])
@@ -52,4 +58,17 @@ def login_donor():
 @app.route("/REST/test/")
 def rest_test():
     return jsonify(status="OK",info={"disi":"frane"})
+
+@app.route("/REST/events")
+def rest_push_event():
+    token = request.args["token"]
+    username = Functions.get_username_from_token(token)
+    user = userClass.get_by_username(username)
+    doc = mongo.EventDocument()
+    doc["username"] = user.get_username()
+    doc["institutionID"] = None
+    doc["type"] = request.args["type"]
+    doc["info"] = {}
+    return jsonify(status="OK")
+
 

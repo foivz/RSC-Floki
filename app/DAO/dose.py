@@ -77,7 +77,8 @@ class DoseDocument(Document):
         'AB0' : basestring,
         'Rh' : basestring,
         'status' : basestring,
-        'dateCreated' : datetime
+        'dateCreated' : datetime,
+        'donationId' :basestring
     }
 
     default_values = {
