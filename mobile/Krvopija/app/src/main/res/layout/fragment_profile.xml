@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Slana Kifla"
+                    android:text="Loading..."
                     android:textSize="@dimen/abc_text_size_large_material"
                     android:textColor="#ffffff"
                     android:id="@+id/textView2"/>
